@@ -16,8 +16,8 @@ function CandidateList() {
     const endpoint = "candidates";
     // Define parameters
     const params = {
-      // groupIDs: [280],
-      groupIDs: [groupId],
+      groupIDs: [280],
+      // groupIDs: [groupId],
       // Add any other parameters as needed
     };
 

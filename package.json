@@ -26,6 +26,7 @@
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-modal": "^13.0.1",
     "react-native-picker": "^4.3.7",
     "react-native-picker-select": "^9.0.0"
   },

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet } from "react-native";
+
 import CandidateCard from "./CandidateCard";
+import { POST } from "./API";
 
 function CandidateSwiper({ items }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,14 +16,29 @@ function CandidateSwiper({ items }) {
     },
   });
 
-  const handleSwipeLeft = () => {
+  const handleSwipeLeft = async () => {
     // Handle left swipe
     // console.log('Swiped left');
+
+    // Define the API endpoint URL
+    const endpoint = "sources";
+
+    async function postSource() {
+      await POST(endpoint, { id: items[currentIndex].id, group_ids: [1495] });
+    }
+    postSource();
   };
 
   const handleSwipeRight = () => {
     // Handle right swipe
-    // console.log('Swiped right');
+
+    // Define the API endpoint URL
+    const endpoint = "sources";
+
+    async function postSource() {
+      await POST(endpoint, { id: items[currentIndex].id, group_ids: [1495] });
+    }
+    postSource();
   };
 
   const handleSwipeUp = () => {
