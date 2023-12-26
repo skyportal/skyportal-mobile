@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  ScrollView,
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { GET } from "./API";
@@ -46,7 +39,7 @@ function SourceList() {
 
   // Handle item press and navigate to DetailsComponent
   const handleItemPress = (item) => {
-    navigation.navigate("SourcePage", { item });
+    navigation.navigate("Source Page", { item });
   };
 
   // Render each row of information
@@ -77,7 +70,7 @@ function SourceList() {
   };
 
   return (
-    <ScrollView>
+    <View>
       <SourceQuery handleApiCall={handleApiCall} queryStatus={queryStatus} />
       {!queryStatus && sources ? (
         <View>
@@ -91,7 +84,7 @@ function SourceList() {
       ) : (
         <Text>Loading...</Text>
       )}
-    </ScrollView>
+    </View>
   );
 }
 
