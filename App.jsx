@@ -7,6 +7,7 @@ import SourceList from "./src/SourceList";
 import SourcePage from "./src/SourcePage";
 import CandidateScanning from "./src/CandidateScanning";
 import CandidateList from "./src/CandidateList";
+import GcnEventList from "./src/GcnEventList";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ function App() {
         <Stack.Screen name="Candidate List" component={CandidateList} />
         <Stack.Screen name="Sources" component={SourceList} />
         <Stack.Screen name="Source Page" component={SourcePage} />
+        <Stack.Screen name="GCN Events" component={GcnEventList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

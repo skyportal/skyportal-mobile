@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "skyportal-mobile",
-    "slug": "skyportal-mobile",
+    "slug": "skyportal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,16 +13,24 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mcoughlin.skyportal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mcoughlin.skyportal"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8d83cf54-9338-483b-89e8-2206d28ba453"
+      }
+    },
+    "owner": "mcoughlin"
   }
 }

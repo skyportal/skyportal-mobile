@@ -24,6 +24,10 @@ function HomeScreen() {
         title="Let's look at candidates!"
         onPress={() => navigation.navigate("Candidate Scanning")}
       />
+      <Button
+        title="Let's look at GCN Events!"
+        onPress={() => navigation.navigate("GCN Events")}
+      />
     </View>
   );
 }
