@@ -49,7 +49,7 @@ function FrontPage() {
     setSavedData(textInput);
 
     // Navigate to another screen or perform other actions if needed
-    navigation.navigate("SourceList");
+    navigation.navigate("Candidate Scanning");
   };
 
   return (

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { GET } from "./API";
@@ -70,7 +77,7 @@ function SourceList() {
   };
 
   return (
-    <View>
+    <ScrollView>
       <SourceQuery handleApiCall={handleApiCall} queryStatus={queryStatus} />
       {!queryStatus && sources ? (
         <View>
@@ -84,7 +91,7 @@ function SourceList() {
       ) : (
         <Text>Loading...</Text>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
