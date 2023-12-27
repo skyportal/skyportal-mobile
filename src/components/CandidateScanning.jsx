@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RNPickerSelect from "react-native-picker-select";
 
-import { GET } from "./API";
+import { GET } from "../API";
 
 function CandidateScanning() {
   const [groups, setGroups] = useState(null);
@@ -49,10 +49,6 @@ function CandidateScanning() {
     }
   };
 
-  const currentGroup = options.find((option) => option.value === selectedGroup)
-    ? options.find((option) => option.value === selectedGroup).label
-    : null;
-
   return (
     <ScrollView>
       {!queryStatus && groups ? (
@@ -62,18 +58,24 @@ function CandidateScanning() {
             style={{
               inputAndroid: {
                 color: "black",
-                backgroundColor: "black",
+                backgroundColor: "transparent",
+                fontSize: 16,
+                paddingHorizontal: 10,
+                paddingVertical: 8,
+                borderWidth: 0.5,
+                borderColor: "purple",
+                borderRadius: 8,
+                paddingRight: 30,
               },
             }}
             items={options}
-            placeholder={{ label: "Select your group to scan for", value: -1 }}
             onValueChange={handleValueChange}
             onDonePress={handleValueChange}
             value={selectedGroup}
-            useNativeDriver
+            placeholder={{}}
+            useNativeAndroidPickerStyle={false}
             hideDoneBar
           />
-          <Text>Selected option: {currentGroup}</Text>
           <Button title="Start Scanning!" onPress={() => handleItemPress()} />
         </View>
       ) : (

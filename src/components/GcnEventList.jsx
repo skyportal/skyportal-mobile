@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Chip } from "react-native-paper";
 
-import { GET } from "./API";
+import { GET } from "../API";
 
 function GcnEventList() {
   const [events, setEvents] = useState(null);

@@ -1,13 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import FrontPage from "./src/FrontPage";
-import HomeScreen from "./src/HomeScreen";
-import SourceList from "./src/SourceList";
-import SourcePage from "./src/SourcePage";
-import CandidateScanning from "./src/CandidateScanning";
-import CandidateList from "./src/CandidateList";
-import GcnEventList from "./src/GcnEventList";
+import FrontPage from "./src/components/FrontPage";
+import HomeScreen from "./src/components/HomeScreen";
+import SourceList from "./src/components/SourceList";
+import SourcePage from "./src/components/SourcePage";
+import CandidateScanning from "./src/components/CandidateScanning";
+import CandidateList from "./src/components/CandidateList";
+import GcnEventList from "./src/components/GcnEventList";
 
 const Stack = createStackNavigator();
 

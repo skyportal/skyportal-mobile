@@ -9,8 +9,8 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { ra_to_hours, dec_to_dms } from "./units";
-import { GET } from "./API";
+import { ra_to_hours, dec_to_dms } from "../units";
+import { GET } from "../API";
 import CandidateSwipeMessage from "./CandidateSwipeMessage";
 
 function CandidateCard({

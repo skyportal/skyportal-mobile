@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, ScrollView, Text, Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-import { ra_to_hours, dec_to_dms } from "./units";
-import { GET } from "./API";
+import { ra_to_hours, dec_to_dms } from "../units";
+import { GET } from "../API";
 import PostComment from "./PostComment";
 
 function SourcePage() {

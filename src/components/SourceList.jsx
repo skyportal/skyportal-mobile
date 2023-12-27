@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { GET } from "./API";
+import { GET } from "../API";
 import SourceQuery from "./SourceQuery";
 
 function SourceList() {

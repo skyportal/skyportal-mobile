@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { View, StyleSheet } from "react-native";
 
 import CandidateCard from "./CandidateCard";
-import { POST } from "./API";
+import { POST } from "../API";
 
 function CandidateSwiper({ items }) {
   const [currentIndex, setCurrentIndex] = useState(0);

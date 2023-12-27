@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 
-import { GET } from "./API";
+import { GET } from "../API";
 import CandidateSwiper from "./CandidateSwiper";
 
 function CandidateList() {
