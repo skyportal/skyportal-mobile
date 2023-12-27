@@ -43,18 +43,37 @@ function CandidateScanning() {
     navigation.navigate("Candidate List", { groupId: selectedGroup });
   };
 
+  const handleValueChange = (value) => {
+    if (value && value !== -1) {
+      setSelectedGroup(value);
+    }
+  };
+
+  const currentGroup = options.find((option) => option.value === selectedGroup)
+    ? options.find((option) => option.value === selectedGroup).label
+    : null;
+
   return (
     <ScrollView>
       {!queryStatus && groups ? (
         <View>
           <Text>Select an option:</Text>
           <RNPickerSelect
+            style={{
+              inputAndroid: {
+                color: "black",
+                backgroundColor: "black",
+              },
+            }}
             items={options}
-            onValueChange={(value) => setSelectedGroup(value)}
+            placeholder={{ label: "Select your group to scan for", value: -1 }}
+            onValueChange={handleValueChange}
+            onDonePress={handleValueChange}
             value={selectedGroup}
+            useNativeDriver
             hideDoneBar
           />
-          <Text>Selected option: {selectedGroup}</Text>
+          <Text>Selected option: {currentGroup}</Text>
           <Button title="Start Scanning!" onPress={() => handleItemPress()} />
         </View>
       ) : (
