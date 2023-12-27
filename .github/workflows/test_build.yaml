@@ -19,12 +19,10 @@ jobs:
           ref: main
       - name: Install npm dependency
         run: yarn install
-      - name: Install bundler
-        run: |
-          gem install bundler
-      - name: Install gem plugins
-        run: |
-          bundle install
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
       - name: Run fastlane
         run: |
           bundle exec fastlane build_testflight
@@ -61,17 +59,10 @@ jobs:
       - name: Execute Gradle build
         run: |
           ./gradlew build
-      - name: Build Android JS Bundle
-        run: |
-          yarn run package-android
-      - name: Delete Android build duplicate assets resource
-        run: yarn run delete-pics
-      - name: Install bundler
-        run: |
-          gem install bundler
-      - name: Install gem plugins
-        run: |
-          bundle install
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
       - name: Run fastlane
         run: |
           bundle exec fastlane build_qa
