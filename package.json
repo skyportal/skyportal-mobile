@@ -20,7 +20,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "expo": "~49.0.15",
-    "expo-status-bar": "~1.6.0",
+    "expo-status-bar": "~1.7.1",
     "numeral": "^2.0.6",
     "prettier": "^3.1.1",
     "prop-types": "^15.8.1",
