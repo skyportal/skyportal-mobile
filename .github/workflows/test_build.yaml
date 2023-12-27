@@ -27,7 +27,7 @@ jobs:
       - run: bundle update --bundler
       - name: Run fastlane
         run: |
-          bundle exec fastlane build_ios_app
+          bundle exec fastlane beta
   android-build:
     name: Android Dev Build
     runs-on: ubuntu-latest
@@ -61,12 +61,3 @@ jobs:
       - name: Execute Gradle build
         run: |
           ./gradlew build
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-          bundler-cache: true
-      - run: bundle install
-      - run: bundle update --bundler
-      - name: Run fastlane
-        run: |
-          bundle exec fastlane build_android_app

@@ -1,0 +1,7 @@
+platform :ios do
+  lane :beta do
+    setup_ci if ENV['CI']
+    match(type: 'appstore')
+    build_app
+  end
+end
