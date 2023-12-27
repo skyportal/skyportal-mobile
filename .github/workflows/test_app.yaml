@@ -7,8 +7,7 @@ on:
   pull_request:
 
 jobs:
-  jest:
-    name: Run tests
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 120
 
@@ -20,4 +19,4 @@ jobs:
       - name: Install npm dependency
         run: yarn install
       - name: Run jest
-        uses: npx jest
+        run: npx jest
