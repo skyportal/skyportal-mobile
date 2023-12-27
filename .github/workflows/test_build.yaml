@@ -27,7 +27,7 @@ jobs:
       - run: bundle update --bundler
       - name: Run fastlane
         run: |
-          bundle exec fastlane beta
+          bundle exec fastlane ios beta
   android-build:
     name: Android Dev Build
     runs-on: ubuntu-latest
