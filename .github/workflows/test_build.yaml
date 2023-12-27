@@ -28,22 +28,18 @@ jobs:
             ${{ runner.os }}-pods-
       - name: Install pod dependency
         run: |
-          cd ios
           bundle exec pod install
       - name: Build iOS JS Bundle
         run: |
           yarn run package-ios
       - name: Install bundler
         run: |
-          cd ios
           gem install bundler
       - name: Install gem plugins
         run: |
-          cd ios
           bundle install
       - name: Run fastlane
         run: |
-          cd ios
           bundle exec fastlane build_testflight
   android-build:
     name: Android Dev Build
@@ -71,7 +67,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
         run: |
-          cd android
           ./gradlew build
       - name: Build Android JS Bundle
         run: |
@@ -80,13 +75,10 @@ jobs:
         run: yarn run delete-pics
       - name: Install bundler
         run: |
-          cd android
           gem install bundler
       - name: Install gem plugins
         run: |
-          cd android
           bundle install
       - name: Run fastlane
         run: |
-          cd android
           bundle exec fastlane build_qa
