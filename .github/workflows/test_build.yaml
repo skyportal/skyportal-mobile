@@ -38,7 +38,7 @@ jobs:
         run: npx expo export -p android
 
   web-build:
-    name: Android Dev Build
+    name: Web Dev Build
     runs-on: ubuntu-latest
     timeout-minutes: 120
 
