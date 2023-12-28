@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Modal, View, Text, Button, StyleSheet } from "react-native";
+import { Modal, StyleSheet } from "react-native";
+import { Text, View, Button } from "./Themed.tsx";
 
-function CandidateSwipeMessage({ visible, message, onClose }) {
+function SwipeMessage({ visible, message, onClose }) {
   const styles = StyleSheet.create({
     modalContainer: {
       flex: 1,
@@ -34,10 +35,10 @@ function CandidateSwipeMessage({ visible, message, onClose }) {
   );
 }
 
-CandidateSwipeMessage.propTypes = {
+SwipeMessage.propTypes = {
   visible: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default CandidateSwipeMessage;
+export default SwipeMessage;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
+import { Text, View } from "../../components/Themed";
 import { Chip } from "react-native-paper";
 
-import { GET } from "../API";
+import { GET } from "../../components/API";
 
-function GcnEventList() {
+function GcnEvents() {
   const [events, setEvents] = useState(null);
 
   const gcnTags = {
@@ -74,4 +75,4 @@ function GcnEventList() {
   );
 }
 
-export default GcnEventList;
+export default GcnEvents;

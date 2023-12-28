@@ -1,15 +1,40 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNPickerSelect from "react-native-picker-select";
+import { Text, View, Button } from "./Themed.tsx";
 
-function FrontPage() {
-  const navigation = useNavigation();
+import PopupMessage from "./PopupMessage";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+});
+
+function Login() {
   const [textInput, setTextInput] = useState("");
   const [url, setUrl] = useState("https://fritz.science");
-  const [savedData, setSavedData] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const closeModal = () => {
+    setShowModal(false);
+    setModalMessage("");
+  };
 
   const saveData = async () => {
     // Save user inputs to AsyncStorage
@@ -19,16 +44,13 @@ function FrontPage() {
     };
     await AsyncStorage.setItem("userData", JSON.stringify(dataToSave));
 
-    // Update the savedData state for immediate display
-    setSavedData(textInput);
-
-    // Navigate to another screen or perform other actions if needed
-    navigation.navigate("Home");
+    setShowModal(true);
+    setModalMessage("Successfully saved login!");
   };
 
   return (
-    <View>
-      <Text>Selected URL: {url}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Selected URL: {url}</Text>
       <RNPickerSelect
         style={{
           inputAndroid: {
@@ -52,8 +74,6 @@ function FrontPage() {
         useNativeAndroidPickerStyle={false}
         hideDoneBar
       />
-      <Button title="Clear Selection" onPress={() => setUrl(null)} />
-
       <TextInput
         style={{
           height: 40,
@@ -67,15 +87,15 @@ function FrontPage() {
         onChangeText={(text) => setTextInput(text)}
       />
 
-      <Button title="Save Data" onPress={saveData} />
+      <Button title="Login" onPress={saveData} />
 
-      {savedData && (
-        <View style={{ marginTop: 20 }}>
-          <Text>Saved Data: {savedData}</Text>
-        </View>
-      )}
+      <PopupMessage
+        visible={showModal}
+        message={modalMessage}
+        onClose={closeModal}
+      />
     </View>
   );
 }
 
-export default FrontPage;
+export default Login;

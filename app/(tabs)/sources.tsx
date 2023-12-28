@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { FlatList, Image, TouchableOpacity } from "react-native";
+import { Text, View } from "../../components/Themed";
+import { Link } from "expo-router";
 
-import { GET } from "../API";
-import SourceQuery from "./SourceQuery";
+import { GET } from "../../components/API";
+import SourceQuery from "../../components/SourceQuery";
 
-function SourceList() {
+function Sources() {
   const [sources, setSources] = useState(null);
-  const navigation = useNavigation();
   const [queryStatus, setQueryStatus] = useState(false);
 
   const handleApiCall = (sourceFilter) => {
@@ -37,11 +37,6 @@ function SourceList() {
     fetchData();
   };
 
-  // Handle item press and navigate to DetailsComponent
-  const handleItemPress = (item) => {
-    navigation.navigate("Source Page", { item });
-  };
-
   // Render each row of information
   const renderItem = ({ item }) => {
     const thumbnail_order = ["new", "ref", "sub", "sdss", "ls", "ps1"];
@@ -51,12 +46,12 @@ function SourceList() {
     );
 
     return (
-      <TouchableOpacity onPress={() => handleItemPress(item)}>
-        <View
-          style={{
-            padding: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: "#ccc",
+      <View>
+        <Link
+          push
+          href={{
+            pathname: "/source/[id]",
+            params: { id: item.id },
           }}
         >
           <Text>{item.id}</Text>
@@ -64,8 +59,8 @@ function SourceList() {
             source={{ uri: thumbnails[0].public_url }}
             style={{ width: 200, height: 200, marginTop: 5 }}
           />
-        </View>
-      </TouchableOpacity>
+        </Link>
+      </View>
     );
   };
 
@@ -88,4 +83,4 @@ function SourceList() {
   );
 }
 
-export default SourceList;
+export default Sources;

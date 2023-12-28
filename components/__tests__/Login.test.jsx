@@ -1,19 +1,19 @@
 import React from "react";
+// eslint-disable-next-line import/no-unresolved
 import { render, fireEvent } from "expo-router/testing-library";
-import App from "../../../App";
+import { NavigationContainer } from "@react-navigation/native";
+import Login from "../Login";
 
+// eslint-disable-next-line no-undef
 describe("App", () => {
+  // eslint-disable-next-line no-undef
   test("navigates to the Front page, selects an option and inputs text, then goes to Home screen", async () => {
-    const rendered = render(<App />);
-
-    // Open the picker
-    // fireEvent.press(getByText('fritz'));
-
-    // Select an option (in this case, "Option 2")
-    // fireEvent.press(getByText('https://fritz.science'));
-
-    // Check if the selected option is displayed
-    // expect(getByText('https://fritz.science')).toBeTruthy();
+    const rendered = render(
+      <NavigationContainer>
+        {" "}
+        <Login />{" "}
+      </NavigationContainer>
+    );
 
     // Type something in the TextInput
     fireEvent.changeText(
@@ -22,10 +22,11 @@ describe("App", () => {
     );
 
     // Check if the TextInput value has been updated
+    // eslint-disable-next-line no-undef
     expect(
       rendered.getByPlaceholderText("Enter your token here").props.value
     ).toBe("1234");
 
-    fireEvent.press(rendered.getByText("Save Data"));
+    fireEvent.press(rendered.getByText("Login"));
   });
 });

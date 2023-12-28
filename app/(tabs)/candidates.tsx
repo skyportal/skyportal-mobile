@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Link } from "expo-router";
+import { Text, View, Button } from "../../components/Themed";
 import RNPickerSelect from "react-native-picker-select";
 
-import { GET } from "../API";
+import { GET } from "../../components/API";
 
-function CandidateScanning() {
+function Candidates() {
   const [groups, setGroups] = useState(null);
-  const navigation = useNavigation();
   const [queryStatus, setQueryStatus] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
@@ -22,13 +21,14 @@ function CandidateScanning() {
       const response = await GET(endpoint, {});
       setGroups(response.data.all_groups);
       setQueryStatus(false);
+      setSelectedGroup(response.data.all_groups[0].id);
     }
 
     fetchData();
   }, []);
 
   // Render an empty component if data is null
-  if (groups === null) {
+  if ((groups === null) | (selectedGroup === null)) {
     return null; // or any other empty component you want to render
   }
 
@@ -38,11 +38,6 @@ function CandidateScanning() {
     key: item.id,
   }));
 
-  // Handle item press and navigate to DetailsComponent
-  const handleItemPress = () => {
-    navigation.navigate("Candidate List", { groupId: selectedGroup });
-  };
-
   const handleValueChange = (value) => {
     if (value && value !== -1) {
       setSelectedGroup(value);
@@ -50,7 +45,7 @@ function CandidateScanning() {
   };
 
   return (
-    <ScrollView>
+    <View>
       {!queryStatus && groups ? (
         <View>
           <Text>Select an option:</Text>
@@ -70,19 +65,25 @@ function CandidateScanning() {
             }}
             items={options}
             onValueChange={handleValueChange}
-            onDonePress={handleValueChange}
             value={selectedGroup}
-            placeholder={{}}
             useNativeAndroidPickerStyle={false}
             hideDoneBar
           />
-          <Button title="Start Scanning!" onPress={() => handleItemPress()} />
+          <Link
+            push
+            href={{
+              pathname: "/candidate/[id]",
+              params: { id: selectedGroup },
+            }}
+          >
+            <Text>{selectedGroup}</Text>
+          </Link>
         </View>
       ) : (
         <Text>Loading...</Text>
       )}
-    </ScrollView>
+    </View>
   );
 }
 
-export default CandidateScanning;
+export default Candidates;

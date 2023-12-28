@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useLocalSearchParams } from "expo-router";
 
-import { GET } from "../API";
-import CandidateSwiper from "./CandidateSwiper";
+import { GET } from "../../../components/API";
+import CandidateSwiper from "../../../components/CandidateSwiper";
 
 function CandidateList() {
-  const route = useRoute();
-  const { groupId } = route.params;
+  const params = useLocalSearchParams();
+  const { id } = params;
 
   const [candidates, setCandidates] = useState(null);
   const [pageInfo, setPageInfo] = useState(null);
@@ -15,14 +15,14 @@ function CandidateList() {
     // Define the API endpoint URL
     const endpoint = "candidates";
     // Define parameters
-    const params = {
+    const get_params = {
       groupIDs: [280],
-      // groupIDs: [groupId],
+      // groupIDs: [id],
       // Add any other parameters as needed
     };
 
     async function fetchData() {
-      const response = await GET(endpoint, params);
+      const response = await GET(endpoint, get_params);
       setCandidates(response.data.candidates);
       setPageInfo({
         pageNumber: response.data.pageNumber,
@@ -31,7 +31,7 @@ function CandidateList() {
       });
     }
     fetchData();
-  }, [groupId]);
+  }, [id]);
 
   // Render an empty component if data is null
   if (candidates === null || candidates.length === 0) {

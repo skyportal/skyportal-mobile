@@ -9,9 +9,9 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { ra_to_hours, dec_to_dms } from "../units";
-import { GET } from "../API";
-import CandidateSwipeMessage from "./CandidateSwipeMessage";
+import { ra_to_hours, dec_to_dms } from "./units";
+import { GET } from "./API";
+import PopupMessage from "./PopupMessage";
 
 function CandidateCard({
   item,
@@ -146,7 +146,7 @@ function CandidateCard({
           ))}
         </ScrollView>
       </Animated.View>
-      <CandidateSwipeMessage
+      <PopupMessage
         visible={showModal}
         message={modalMessage}
         onClose={closeModal}

@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Text, Image } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { ScrollView, Image } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Text, View } from "../../../components/Themed.tsx";
 
-import { ra_to_hours, dec_to_dms } from "../units";
-import { GET } from "../API";
-import PostComment from "./PostComment";
+import { ra_to_hours, dec_to_dms } from "../../../components/units";
+import { GET } from "../../../components/API";
+import PostComment from "../../../components/PostComment";
 
-function SourcePage() {
-  const route = useRoute();
-  const { item } = route.params;
+function Source() {
+  const params = useLocalSearchParams();
+  const { id } = params;
+
   const [data, setData] = useState(null);
   const [comment, setComment] = useState(false);
 
   useEffect(() => {
-    const endpoint = `sources/${item.id}`;
+    const endpoint = `sources/${id}`;
     // Define parameters
-    const params = {
+    const get_params = {
       includeThumbnails: true,
       includeComments: true,
       includeDetectionStats: true,
     };
 
     async function fetchData() {
-      const response = await GET(endpoint, params);
+      const response = await GET(endpoint, get_params);
       setData(response.data);
     }
 
     fetchData();
     setComment(false);
-  }, [comment, item.id]);
+  }, [comment, id]);
 
   // Render an empty component if data is null
   if (data === null) {
@@ -106,4 +108,4 @@ function SourcePage() {
   );
 }
 
-export default SourcePage;
+export default Source;

@@ -11,9 +11,7 @@ plugins: ["import", "react", "react-hooks"]
 extends: ["airbnb", "plugin:react/recommended", "prettier"]
 settings:
   import/resolver:
-    node: {}
-    webpack:
-      config: webpack.config.js
+    node: { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
   react:
     version: detect
 rules:

@@ -13,21 +13,15 @@ jobs:
     timeout-minutes: 120
 
     steps:
-      - name: Checkout repo from main branch
+      - name: Checkout repo from main
         uses: actions/checkout@v3
         with:
           ref: main
       - name: Install npm dependency
         run: yarn install
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-          bundler-cache: true
-      - run: bundle install
-      - run: bundle update --bundler
-      - name: Run fastlane
-        run: |
-          bundle exec fastlane ios beta
+      - name: Run build
+        run: npx expo export -p ios
+
   android-build:
     name: Android Dev Build
     runs-on: ubuntu-latest
@@ -40,24 +34,20 @@ jobs:
           ref: main
       - name: Install npm dependency
         run: yarn install
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-      - uses: actions/cache@v3
+      - name: Run build
+        run: npx expo export -p android
+
+  web-build:
+    name: Android Dev Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repo from main
+        uses: actions/checkout@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-      - name: Init gradle
-        run: gradle init
-      - name: Init gradle wrapper
-        run: gradle wrapper
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-      - name: Execute Gradle build
-        run: |
-          ./gradlew build
+          ref: main
+      - name: Install npm dependency
+        run: yarn install
+      - name: Run build
+        run: npx expo export -p web

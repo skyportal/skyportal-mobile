@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-import { POST } from "../API";
+import { POST } from "./API";
 
 function PostComment({ sourceId, setComment }) {
   const [commentData, setCommentData] = useState("");
