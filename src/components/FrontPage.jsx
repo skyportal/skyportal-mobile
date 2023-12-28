@@ -8,7 +8,7 @@ import RNPickerSelect from "react-native-picker-select";
 function FrontPage() {
   const navigation = useNavigation();
   const [textInput, setTextInput] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://fritz.science");
   const [savedData, setSavedData] = useState("");
 
   const saveData = async () => {

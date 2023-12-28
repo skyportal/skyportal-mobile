@@ -2,7 +2,7 @@
   "expo": {
     "name": "skyportal-mobile",
     "slug": "skyportal",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,8 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mcoughlin.skyportal"
+      "package": "com.mcoughlin.skyportal",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
