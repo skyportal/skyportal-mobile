@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mcoughlin.skyportal",
-      "buildNumber": 7
+      "buildNumber": "7"
     },
     "android": {
       "adaptiveIcon": {
