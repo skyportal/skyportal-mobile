@@ -1,7 +1,3 @@
-# skyportal-mobile
-
-Mobile version of the SkyPortal app
-
 <h1 align="center">
   <br>
   <img

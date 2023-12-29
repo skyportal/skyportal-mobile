@@ -12,6 +12,7 @@ import { Text, View } from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
+import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
 
 function Source() {
@@ -141,9 +142,12 @@ function Source() {
                 style={{ flexDirection: "row", alignItems: "center" }}
                 key={thisComment.id}
               >
-                <Image
-                  source={{ uri: thisComment.author?.gravatar_url }}
-                  style={{ width: 30, height: 30, borderRadius: 10 }}
+                <UserAvatar
+                  size={30}
+                  firstName={thisComment.author?.first_name}
+                  lastName={thisComment.author?.last_name}
+                  username={thisComment.author?.username}
+                  gravatarUrl={thisComment.author?.gravatar_url}
                 />
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {thisComment.author?.username}

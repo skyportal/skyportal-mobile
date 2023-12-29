@@ -157,9 +157,7 @@ function CandidateCard({
               Linking.openURL(sourceUrl);
             }}
           >
-            <Text style={styles.linkText}>
-              {data.id} (link to {userData.url})
-            </Text>
+            <Text style={styles.linkText}>{data.id}</Text>
           </TouchableOpacity>
           <Text style={styles.itemText}>RA: {ra_to_hours(data.ra)}</Text>
           <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec)}</Text>
