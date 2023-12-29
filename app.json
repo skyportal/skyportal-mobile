@@ -2,7 +2,7 @@
   "expo": {
     "name": "skyportal-mobile",
     "slug": "skyportal",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -16,6 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mcoughlin.skyportal"
+      "buildNumber": 7,
     },
     "android": {
       "adaptiveIcon": {
@@ -23,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mcoughlin.skyportal",
-      "versionCode": 4
+      "versionCode": 7
     },
     "web": {
       "bundler": "metro",
