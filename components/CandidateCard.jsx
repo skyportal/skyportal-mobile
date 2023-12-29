@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import {
   Animated,
   PanResponder,
+  Linking,
   ScrollView,
-  Text,
   Image,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text } from "./Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "./units";
 import { GET } from "./API";
@@ -21,6 +24,7 @@ function CandidateCard({
   onSwipeDown,
 }) {
   const [data, setData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const translateY = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(0)).current;
@@ -96,6 +100,11 @@ function CandidateCard({
       fontSize: 18,
       fontWeight: "bold",
     },
+    linkText: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "blue",
+    },
   });
 
   const closeModal = () => {
@@ -112,10 +121,21 @@ function CandidateCard({
     fetchData();
   }, [item.id]);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      const userdata = await AsyncStorage.getItem("userData");
+      const parsedData = JSON.parse(userdata);
+      setUserData(parsedData);
+    }
+    fetchUserData();
+  }, []);
+
   // Render an empty component if data is null
   if (data === null) {
     return null; // or any other empty component you want to render
   }
+
+  const sourceUrl = `${userData.url}/sources/${data.id}`;
 
   return (
     <>
@@ -132,7 +152,15 @@ function CandidateCard({
           persistentScrollbar
           scrollEventThrottle={1}
         >
-          <Text style={styles.itemText}>{data.id}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(sourceUrl);
+            }}
+          >
+            <Text style={styles.linkText}>
+              {data.id} (link to {userData.url})
+            </Text>
+          </TouchableOpacity>
           <Text style={styles.itemText}>RA: {ra_to_hours(data.ra)}</Text>
           <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec)}</Text>
 

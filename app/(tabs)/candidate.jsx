@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
+import { Text } from "../../components/Themed.tsx";
 
-import { GET } from "../../../components/API";
-import CandidateSwiper from "../../../components/CandidateSwiper";
+import { GET } from "../../components/API";
+import CandidateSwiper from "../../components/CandidateSwiper";
 
 function CandidateList() {
   const params = useLocalSearchParams();
-  const { id } = params;
+  const { id, save, reject } = params;
 
   const [candidates, setCandidates] = useState(null);
   const [pageInfo, setPageInfo] = useState(null);
@@ -16,8 +17,7 @@ function CandidateList() {
     const endpoint = "candidates";
     // Define parameters
     const get_params = {
-      groupIDs: [280],
-      // groupIDs: [id],
+      groupIDs: [id],
       // Add any other parameters as needed
     };
 
@@ -34,11 +34,22 @@ function CandidateList() {
   }, [id]);
 
   // Render an empty component if data is null
-  if (candidates === null || candidates.length === 0) {
-    return null; // or any other empty component you want to render
+  if (candidates === null || candidates === undefined) {
+    return <Text>Querying for candidates...</Text>;
   }
 
-  return <CandidateSwiper items={candidates} pageInfo={pageInfo} />;
+  if (candidates.length === 0) {
+    return <Text>No candidates found.</Text>;
+  }
+
+  return (
+    <CandidateSwiper
+      items={candidates}
+      save={save}
+      reject={reject}
+      pageInfo={pageInfo}
+    />
+  );
 }
 
 export default CandidateList;

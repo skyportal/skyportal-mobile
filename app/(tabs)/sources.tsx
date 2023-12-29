@@ -50,7 +50,7 @@ function Sources() {
         <Link
           push
           href={{
-            pathname: "/source/[id]",
+            pathname: "/(tabs)/source",
             params: { id: item.id },
           }}
         >

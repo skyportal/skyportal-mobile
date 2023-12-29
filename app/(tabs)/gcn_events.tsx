@@ -60,7 +60,7 @@ function GcnEvents() {
   );
 
   // Render an empty component if data is null
-  if (events === null || events.length === 0) {
+  if (events === null || events === undefined || events.length === 0) {
     return null; // or any other empty component you want to render
   }
 

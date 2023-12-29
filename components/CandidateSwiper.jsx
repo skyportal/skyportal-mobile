@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet } from "react-native";
+import { Stack } from "expo-router";
 
 import CandidateCard from "./CandidateCard";
 import { POST } from "./API";
 
-function CandidateSwiper({ items }) {
+function CandidateSwiper({ items, save, reject }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const styles = StyleSheet.create({
@@ -24,7 +25,7 @@ function CandidateSwiper({ items }) {
     const endpoint = "sources";
 
     async function postSource() {
-      await POST(endpoint, { id: items[currentIndex].id, group_ids: [1495] });
+      await POST(endpoint, { id: items[currentIndex].id, group_ids: [reject] });
     }
     postSource();
   };
@@ -36,7 +37,7 @@ function CandidateSwiper({ items }) {
     const endpoint = "sources";
 
     async function postSource() {
-      await POST(endpoint, { id: items[currentIndex].id, group_ids: [1495] });
+      await POST(endpoint, { id: items[currentIndex].id, group_ids: [save] });
     }
     postSource();
   };
@@ -54,8 +55,10 @@ function CandidateSwiper({ items }) {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
+  const itemId = items[currentIndex].id;
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: true, title: itemId }} />
       <CandidateCard
         key={currentIndex}
         item={items[currentIndex]}
@@ -90,6 +93,8 @@ CandidateSwiper.propTypes = {
       ),
     })
   ).isRequired,
+  save: PropTypes.number.isRequired,
+  reject: PropTypes.number.isRequired,
 };
 
 export default CandidateSwiper;
