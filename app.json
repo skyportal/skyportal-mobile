@@ -15,7 +15,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mcoughlin.skyportal"
+      "bundleIdentifier": "com.mcoughlin.skyportal",
       "buildNumber": 7
     },
     "android": {
