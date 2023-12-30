@@ -2,22 +2,23 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Animated,
+  FlatList,
   PanResponder,
   Linking,
-  ScrollView,
   Image,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text } from "./Themed.tsx";
+import { View, Text } from "./Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "./units";
 import { GET } from "./API";
 import PopupMessage from "./PopupMessage";
+import orderAndModifyThumbnailList from "./thumbnails";
 
 function CandidateCard({
-  item,
+  item: candidate,
   onSwipeLeft,
   onSwipeRight,
   onSwipeUp,
@@ -88,13 +89,13 @@ function CandidateCard({
 
   const styles = StyleSheet.create({
     itemContainer: {
-      width: "80%",
-      height: 600,
+      width: "95%",
+      height: 700,
       overflow: "hidden",
       backgroundColor: "lightgray",
-      borderRadius: 10,
+      borderRadius: 20,
       padding: 20,
-      margin: 10,
+      margin: 5,
     },
     itemText: {
       fontSize: 18,
@@ -113,13 +114,13 @@ function CandidateCard({
   };
 
   useEffect(() => {
-    const endpoint = `candidates/${item.id}`;
+    const endpoint = `candidates/${candidate.id}`;
     async function fetchData() {
       const response = await GET(endpoint, {});
       setData(response.data);
     }
     fetchData();
-  }, [item.id]);
+  }, [candidate.id]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -130,12 +131,28 @@ function CandidateCard({
     fetchUserData();
   }, []);
 
+  const renderItem = ({ item }) => (
+    <View>
+      <Text style={{ textAlign: "center" }}>{item.type}</Text>
+      <Image
+        key={item.id}
+        source={{ uri: item.public_url }}
+        style={{ width: 140, height: 140 }}
+        resizeMode="cover"
+      />
+    </View>
+  );
+
   // Render an empty component if data is null
   if (data === null) {
     return null; // or any other empty component you want to render
   }
 
-  const sourceUrl = `${userData.url}/sources/${data.id}`;
+  const sourceUrl = `${userData.url}/source/${data.id}`;
+  const orderedThumbnails = orderAndModifyThumbnailList(
+    data.thumbnails,
+    userData
+  );
 
   return (
     <>
@@ -146,12 +163,7 @@ function CandidateCard({
         ]}
         {...panResponder.panHandlers}
       >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator
-          persistentScrollbar
-          scrollEventThrottle={1}
-        >
+        <View style={styles.itemContainer}>
           <TouchableOpacity
             onPress={() => {
               Linking.openURL(sourceUrl);
@@ -163,14 +175,18 @@ function CandidateCard({
           <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec)}</Text>
 
           <Text style={styles.itemText}>Images:</Text>
-          {data.thumbnails?.map((thumbnail) => (
-            <Image
-              key={thumbnail.id}
-              source={{ uri: thumbnail.public_url }}
-              style={{ width: 200, height: 200 }}
+          {orderedThumbnails ? (
+            <FlatList
+              data={orderedThumbnails}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={2}
+              showsHorizontalScrollIndicator={false} // Hide horizontal scrollbar
             />
-          ))}
-        </ScrollView>
+          ) : (
+            <View />
+          )}
+        </View>
       </Animated.View>
       <PopupMessage
         visible={showModal}

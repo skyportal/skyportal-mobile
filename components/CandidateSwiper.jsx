@@ -93,8 +93,8 @@ CandidateSwiper.propTypes = {
       ),
     })
   ).isRequired,
-  save: PropTypes.number.isRequired,
-  reject: PropTypes.number.isRequired,
+  save: PropTypes.string.isRequired,
+  reject: PropTypes.string.isRequired,
 };
 
 export default CandidateSwiper;
