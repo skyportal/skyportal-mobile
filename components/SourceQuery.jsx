@@ -1,24 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   View,
   TextInput,
   Text,
   ActivityIndicator,
-  Alert,
   TouchableOpacity,
 } from "react-native";
 
-function SourceQuery({ handleApiCall, queryStatus }) {
-  const [sourceFilter, setSourceFilter] = useState("");
-
+function SourceQuery({ sourceFilter, setSourceFilter, queryStatus }) {
   const handleSourceQuery = async () => {
-    try {
-      // Trigger the API call
-      await handleApiCall(sourceFilter);
-    } catch (error) {
-      Alert.alert("Error", `An error occurred during the API call: ${error}`);
-    }
+    setSourceFilter(sourceFilter);
   };
 
   return (
@@ -50,7 +42,7 @@ function SourceQuery({ handleApiCall, queryStatus }) {
           flexDirection: "row",
         }}
         onPress={handleSourceQuery}
-        disabled={queryStatus} // Disable the button while loading
+        disabled={queryStatus}
       >
         {queryStatus ? (
           <ActivityIndicator
@@ -67,7 +59,8 @@ function SourceQuery({ handleApiCall, queryStatus }) {
 }
 
 SourceQuery.propTypes = {
-  handleApiCall: PropTypes.func.isRequired,
+  sourceFilter: PropTypes.string.isRequired,
+  setSourceFilter: PropTypes.func.isRequired,
   queryStatus: PropTypes.bool.isRequired,
 };
 

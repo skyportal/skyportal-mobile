@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
-import { Text, View } from "../../components/Themed.tsx";
+import { Text, View, Button } from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
@@ -15,10 +15,12 @@ dayjs.extend(calendar);
 
 function Sources() {
   const [sources, setSources] = useState(null);
+  const [page, setPage] = useState(1);
+  const [sourceFilter, setSourceFilter] = useState("");
   const [userData, setUserData] = useState(null);
   const [queryStatus, setQueryStatus] = useState(false);
 
-  const handleApiCall = (sourceFilter) => {
+  useEffect(() => {
     // Show loading indicator
     setQueryStatus(true);
 
@@ -27,13 +29,11 @@ function Sources() {
     // Define parameters
     const params = {
       numPerPage: 10,
+      pageNumber: page,
       includeThumbnails: true,
-      includeComments: true,
-      includeDetectionStats: true,
       sourceID: sourceFilter,
       sortBy: "saved_at",
-      sort_order: "asc",
-      // Add any other parameters as needed
+      sort_order: "desc",
     };
 
     async function fetchData() {
@@ -43,7 +43,7 @@ function Sources() {
     }
 
     fetchData();
-  };
+  }, [page, sourceFilter]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -119,9 +119,20 @@ function Sources() {
     );
   };
 
+  const handleLoadMore = () => {
+    if (!queryStatus) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
   return (
     <View>
-      <SourceQuery handleApiCall={handleApiCall} queryStatus={queryStatus} />
+      <SourceQuery
+        sourceFilter={sourceFilter}
+        setSourceFilter={setSourceFilter}
+        queryStatus={queryStatus}
+      />
+      <Button title="Load More" onPress={handleLoadMore} />
       {!queryStatus && sources ? (
         <View>
           {/* Use FlatList to render the list */}
