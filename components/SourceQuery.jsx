@@ -13,11 +13,6 @@ function SourceQuery({ handleApiCall, queryStatus }) {
   const [sourceFilter, setSourceFilter] = useState("");
 
   const handleSourceQuery = async () => {
-    if (sourceFilter.trim() === "") {
-      Alert.alert("Error", "Please enter a valid source/ID query");
-      return;
-    }
-
     try {
       // Trigger the API call
       await handleApiCall(sourceFilter);

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { Linking, FlatList, TouchableOpacity } from "react-native";
 import { Text, View } from "../../components/Themed";
 import { Chip } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { GET } from "../../components/API";
 
 function GcnEvents() {
   const [events, setEvents] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const gcnTags = {
     BNS: "#468847",
@@ -28,36 +30,56 @@ function GcnEvents() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      const userdata = await AsyncStorage.getItem("userData");
+      const parsedData = JSON.parse(userdata);
+      setUserData(parsedData);
+    }
+    fetchUserData();
+  }, []);
+
   // Render each row of information
-  const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View
-        style={{
-          padding: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: "#ccc",
+  const renderItem = ({ item }) => {
+    const eventUrl = `${userData.url}/gcn_events/${item.dateobs}`;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          Linking.openURL(eventUrl);
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{item.dateobs}</Text>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}>
-          {item.tags?.map((tag) => (
-            <View
-              key={tag}
-              style={{
-                padding: 5,
-                margin: 5,
-                borderRadius: 5,
-              }}
-            >
-              <Chip mode="outlined" selectedColor={gcnTags[tag]}>
-                {tag}
-              </Chip>
-            </View>
-          ))}
+        <View
+          style={{
+            padding: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: "#ccc",
+          }}
+        >
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+            {item.dateobs}
+          </Text>
+          <View
+            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
+          >
+            {item.tags?.map((tag) => (
+              <View
+                key={tag}
+                style={{
+                  padding: 5,
+                  margin: 5,
+                  borderRadius: 5,
+                }}
+              >
+                <Chip mode="outlined" selectedColor={gcnTags[tag]}>
+                  {tag}
+                </Chip>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  };
 
   // Render an empty component if data is null
   if (events === null || events === undefined || events.length === 0) {

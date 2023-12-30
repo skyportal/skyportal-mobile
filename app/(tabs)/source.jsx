@@ -14,6 +14,7 @@ import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
+import orderAndModifyThumbnailList from "../../components/thumbnails";
 
 function Source() {
   const params = useLocalSearchParams();
@@ -76,7 +77,11 @@ function Source() {
     return null; // or any other empty component you want to render
   }
 
-  const sourceUrl = `${userData.url}/sources/${id}`;
+  const sourceUrl = `${userData.url}/source/${id}`;
+  const orderedThumbnails = orderAndModifyThumbnailList(
+    data.thumbnails,
+    userData
+  );
 
   return (
     <ScrollView style={styles.itemContainer}>
@@ -102,7 +107,7 @@ function Source() {
             Images:
           </Text>
           <ScrollView horizontal>
-            {data.thumbnails?.map((thumbnail) => (
+            {orderedThumbnails?.map((thumbnail) => (
               <Image
                 key={thumbnail.id}
                 source={{ uri: thumbnail.public_url }}
