@@ -62,18 +62,21 @@ function Sources() {
       backgroundColor: "lightgray",
       borderRadius: 10,
       padding: 20,
-      margin: 10,
+      marginTop: 10,
+      marginRight: 5,
       flexDirection: "row",
       alignItems: "center",
     },
     itemText: {
       fontSize: 12,
       fontWeight: "bold",
+      backgroundColor: "lightgray",
     },
     linkText: {
       fontSize: 12,
       fontWeight: "bold",
       color: "blue",
+      backgroundColor: "lightgray",
     },
   });
 
@@ -82,6 +85,8 @@ function Sources() {
     const { thumbnails } = item;
     const orderedThumbnails = orderAndModifyThumbnailList(thumbnails, userData);
     const thumbnail = orderedThumbnails[0].public_url;
+
+    console.log("thumbnail", thumbnail);
 
     return (
       <View style={styles.itemContainer}>
@@ -92,24 +97,18 @@ function Sources() {
             params: { id: item.id },
           }}
         >
-          <View style={{ backgroundColor: "lightgray", marginRight: 5 }}>
+          <View>
             <Image
               source={{ uri: thumbnail }}
               style={{ width: 80, height: 80 }}
             />
           </View>
-          <View style={{ backgroundColor: "lightgray", marginRight: 5 }}>
+          <View style={{ backgroundColor: "lightgray" }}>
             <Text style={styles.linkText}>{item.id}</Text>
             <Text style={styles.itemText}>RA: {ra_to_hours(item.ra)}</Text>
             <Text style={styles.itemText}>Dec: {dec_to_dms(item.dec)}</Text>
           </View>
-          <View
-            style={{
-              backgroundColor: "lightgray",
-              marginTop: 10,
-              marginRight: 10,
-            }}
-          >
+          <View>
             <Text style={styles.itemText}>
               {dayjs().to(dayjs.utc(`${item.created_at}Z`))}
             </Text>
