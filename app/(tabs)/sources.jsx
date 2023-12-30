@@ -86,8 +86,6 @@ function Sources() {
     const orderedThumbnails = orderAndModifyThumbnailList(thumbnails, userData);
     const thumbnail = orderedThumbnails[0].public_url;
 
-    console.log("thumbnail", thumbnail);
-
     return (
       <View style={styles.itemContainer}>
         <Link
