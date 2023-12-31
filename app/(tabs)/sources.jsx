@@ -141,7 +141,6 @@ function Sources() {
       <Button title="Load More" onPress={handleLoadMore} />
       {!queryStatus && sources ? (
         <View>
-          {/* Use FlatList to render the list */}
           <FlatList
             data={sources}
             keyExtractor={(item) => item.id.toString()} // Use a unique key for each item
