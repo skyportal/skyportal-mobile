@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Linking, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { Link } from "expo-router";
 import { Text, View, Button } from "../../components/Themed";
 import { Chip } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -69,16 +70,18 @@ function GcnEvents() {
   const renderItem = ({ item }) => {
     const eventUrl = `${userData.url}/gcn_events/${item.dateobs}`;
     return (
-      <TouchableOpacity
-        onPress={() => {
-          Linking.openURL(eventUrl);
+      <View
+        style={{
+          padding: 10,
+          borderBottomWidth: 1,
+          borderBottomColor: "#ccc",
         }}
       >
-        <View
-          style={{
-            padding: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: "#ccc",
+        <Link
+          push
+          href={{
+            pathname: "/(tabs)/gcn_event",
+            params: { dateobs: item.dateobs },
           }}
         >
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
@@ -102,8 +105,8 @@ function GcnEvents() {
               </View>
             ))}
           </View>
-        </View>
-      </TouchableOpacity>
+        </Link>
+      </View>
     );
   };
 

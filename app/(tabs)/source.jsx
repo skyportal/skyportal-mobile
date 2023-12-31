@@ -100,8 +100,8 @@ function Source() {
             <Text style={styles.linkText}>{data.id}</Text>
           </TouchableOpacity>
 
-          <Text style={styles.itemText}>RA: {ra_to_hours(data.ra)}</Text>
-          <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec)}</Text>
+          <Text style={styles.itemText}>RA: {ra_to_hours(data.ra, ":")}</Text>
+          <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec, ":")}</Text>
 
           <Text style={{ marginTop: 10, fontSize: 16, fontWeight: "bold" }}>
             Images:

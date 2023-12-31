@@ -1,0 +1,94 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, FlatList } from "react-native";
+import { Text, View } from "./Themed.tsx";
+
+function GcnProperties({ data }) {
+  const board_styles = StyleSheet.create({
+    table: {
+      padding: 16,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 8,
+    },
+    row: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 4,
+      borderBottomWidth: 0,
+      borderColor: "#cccccc",
+      paddingVertical: 8,
+    },
+    headerCell: {
+      fontWeight: "bold",
+      marginHorizontal: 10,
+      justifyContent: "center",
+    },
+    cell: {
+      height: "100%",
+      justifyContent: "center",
+      marginHorizontal: 10,
+    },
+  });
+
+  const renderItem = ({ item }) => (
+    <View style={board_styles.row}>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.FAR?.toExponential(0)}{" "}
+      </Text>
+      <Text style={board_styles.cell}> {item.data?.num_instruments} </Text>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.BNS?.toFixed(2)}/{item.data?.NSBH?.toFixed(2)}/
+        {item.data?.BBH?.toFixed(2)}{" "}
+      </Text>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.HasNS?.toFixed(2)}/{item.data?.HasRemnant?.toFixed(2)}
+      </Text>
+    </View>
+  );
+
+  return (
+    <View style={board_styles.table}>
+      <View style={board_styles.header}>
+        <Text style={board_styles.headerCell}>FAR</Text>
+        <Text style={board_styles.headerCell}># Inst.</Text>
+        <Text style={board_styles.headerCell}>BNS/NSBH/BBH</Text>
+        <Text style={board_styles.headerCell}>NS/Remnant</Text>
+      </View>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        scrollEnabled={false}
+      />
+    </View>
+  );
+}
+
+GcnProperties.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.objectOf({
+      data: PropTypes.objectOf({
+        FAR: PropTypes.number,
+        num_instruments: PropTypes.number,
+        BNS: PropTypes.number,
+        NSBH: PropTypes.number,
+        BBH: PropTypes.number,
+        HasNS: PropTypes.number,
+        HasRemnant: PropTypes.number,
+      }),
+      id: PropTypes.number,
+    })
+  ).isRequired,
+};
+
+export default GcnProperties;

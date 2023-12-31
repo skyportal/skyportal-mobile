@@ -92,10 +92,15 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
 
 UserAvatar.propTypes = {
   size: PropTypes.number.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   gravatarUrl: PropTypes.string.isRequired,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+};
+
+UserAvatar.defaultProps = {
+  firstName: null,
+  lastName: null,
 };
 
 export default UserAvatar;

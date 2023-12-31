@@ -108,8 +108,10 @@ function Sources() {
           </View>
           <View style={{ backgroundColor: "lightgray" }}>
             <Text style={styles.linkText}>{item.id}</Text>
-            <Text style={styles.itemText}>RA: {ra_to_hours(item.ra)}</Text>
-            <Text style={styles.itemText}>Dec: {dec_to_dms(item.dec)}</Text>
+            <Text style={styles.itemText}>RA: {ra_to_hours(item.ra, ":")}</Text>
+            <Text style={styles.itemText}>
+              Dec: {dec_to_dms(item.dec, ":")}
+            </Text>
           </View>
           <View>
             <Text style={styles.itemText}>

@@ -11,7 +11,7 @@ import {
 
 import { POST } from "./API";
 
-function PostComment({ sourceId, setComment }) {
+function PostComment({ sourceId = null, eventId = null, setComment }) {
   const [commentData, setCommentData] = useState("");
   const [posting, setPosting] = useState(false);
 
@@ -22,9 +22,14 @@ function PostComment({ sourceId, setComment }) {
     }
 
     setPosting(true);
+    let endpoint;
 
     // Define the API endpoint URL
-    const endpoint = `sources/${sourceId}/comments`;
+    if (sourceId) {
+      endpoint = `sources/${sourceId}/comments`;
+    } else if (eventId) {
+      endpoint = `gcn_event/${eventId}/comments`;
+    }
 
     async function postComment() {
       await POST(endpoint, { text: commentData });
@@ -82,7 +87,13 @@ function PostComment({ sourceId, setComment }) {
 
 PostComment.propTypes = {
   setComment: PropTypes.func.isRequired,
-  sourceId: PropTypes.string.isRequired,
+  sourceId: PropTypes.string,
+  eventId: PropTypes.number,
+};
+
+PostComment.defaultProps = {
+  sourceId: null,
+  eventId: null,
 };
 
 export default PostComment;
