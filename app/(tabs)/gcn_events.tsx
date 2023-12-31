@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Linking, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, Linking, FlatList, TouchableOpacity } from "react-native";
 import { Text, View, Button } from "../../components/Themed";
 import { Chip } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNPickerSelect from "react-native-picker-select";
 
 import { GET } from "../../components/API";
 
 function GcnEvents() {
   const [events, setEvents] = useState(null);
+  const [tags, setTags] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(null);
   const [page, setPage] = useState(1);
   const [userData, setUserData] = useState(null);
   const [queryStatus, setQueryStatus] = useState(false);
@@ -23,6 +26,17 @@ function GcnEvents() {
   };
 
   useEffect(() => {
+    // Define the API endpoint URL
+    const endpoint = "gcn_event/tags";
+    async function fetchTags() {
+      const response = await GET(endpoint, {});
+      setTags(response.data);
+      setQueryStatus(false);
+    }
+    fetchTags();
+  }, []);
+
+  useEffect(() => {
     // Show loading indicator
     setQueryStatus(true);
 
@@ -31,6 +45,7 @@ function GcnEvents() {
     const params = {
       numPerPage: 30,
       pageNumber: page,
+      gcnTagKeep: selectedTag,
     };
 
     async function fetchData() {
@@ -39,7 +54,7 @@ function GcnEvents() {
       setQueryStatus(false);
     }
     fetchData();
-  }, [page]);
+  }, [page, selectedTag]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -92,10 +107,49 @@ function GcnEvents() {
     );
   };
 
+  const picker_style = {
+    inputAndroid: {
+      color: "black",
+      backgroundColor: "transparent",
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: "purple",
+      borderRadius: 8,
+      paddingRight: 30,
+    },
+  };
+
   // Render an empty component if data is null
   if (events === null || events === undefined || events.length === 0) {
     return null; // or any other empty component you want to render
   }
+
+  const options = tags.sort().map((item) => ({
+    label: item,
+    value: item,
+    key: item,
+  }));
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 16,
+    },
+    text: {
+      marginHorizontal: 10, // Adjust the margin between Text components
+      fontSize: 16,
+    },
+  });
+
+  const handleTagChange = (value) => {
+    if (value && value !== -1) {
+      setSelectedTag(value);
+    }
+  };
 
   const handleLoadMore = () => {
     if (!queryStatus) {
@@ -105,6 +159,18 @@ function GcnEvents() {
 
   return (
     <View>
+      <View style={styles.container}>
+        <Text style={styles.text}>Tag to filter by:</Text>
+        <RNPickerSelect
+          style={picker_style}
+          items={options}
+          onValueChange={handleTagChange}
+          value={selectedTag}
+          useNativeAndroidPickerStyle={false}
+          hideDoneBar
+        />
+        <Text style={styles.text}>{selectedTag}</Text>
+      </View>
       <Button title="Load More" onPress={handleLoadMore} />
       {!queryStatus && events ? (
         <View>
