@@ -17,6 +17,9 @@ function Sources() {
   const [sources, setSources] = useState(null);
   const [page, setPage] = useState(1);
   const [sourceFilter, setSourceFilter] = useState("");
+  const [hasSpectrum, setHasSpectrum] = useState(false);
+  const [hasFollowupRequest, setHasFollowupRequest] = useState(false);
+
   const [userData, setUserData] = useState(null);
   const [queryStatus, setQueryStatus] = useState(false);
 
@@ -28,12 +31,14 @@ function Sources() {
     const endpoint = "sources";
     // Define parameters
     const params = {
-      numPerPage: 10,
+      numPerPage: 30,
       pageNumber: page,
       includeThumbnails: true,
       sourceID: sourceFilter,
+      hasSpectrum,
+      hasFollowupRequest,
       sortBy: "saved_at",
-      sort_order: "desc",
+      sortOrder: "desc",
     };
 
     async function fetchData() {
@@ -43,7 +48,7 @@ function Sources() {
     }
 
     fetchData();
-  }, [page, sourceFilter]);
+  }, [page, sourceFilter, hasSpectrum, hasFollowupRequest]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -127,6 +132,10 @@ function Sources() {
       <SourceQuery
         sourceFilter={sourceFilter}
         setSourceFilter={setSourceFilter}
+        hasSpectrum={hasSpectrum}
+        setHasSpectrum={setHasSpectrum}
+        hasFollowupRequest={hasFollowupRequest}
+        setHasFollowupRequest={setHasFollowupRequest}
         queryStatus={queryStatus}
       />
       <Button title="Load More" onPress={handleLoadMore} />

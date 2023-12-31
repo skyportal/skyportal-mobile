@@ -7,10 +7,28 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { CheckBox } from "@rneui/themed";
 
-function SourceQuery({ sourceFilter, setSourceFilter, queryStatus }) {
+function SourceQuery({
+  sourceFilter,
+  setSourceFilter,
+  hasSpectrum,
+  setHasSpectrum,
+  hasFollowupRequest,
+  setHasFollowupRequest,
+  queryStatus,
+}) {
   const handleSourceQuery = async () => {
     setSourceFilter(sourceFilter);
+  };
+
+  const handleSpectrumCheckboxToggle = () => {
+    setHasSpectrum(!hasSpectrum);
+  };
+
+  const handleFollowupRequestCheckboxToggle = () => {
+    setHasFollowupRequest(!hasFollowupRequest);
   };
 
   return (
@@ -30,7 +48,18 @@ function SourceQuery({ sourceFilter, setSourceFilter, queryStatus }) {
         value={sourceFilter}
         onChangeText={(text) => setSourceFilter(text)}
       />
-
+      <View style={{ flexDirection: "row" }}>
+        <CheckBox
+          title="Spectrum?"
+          checked={hasSpectrum}
+          onPress={handleSpectrumCheckboxToggle}
+        />
+        <CheckBox
+          title="Followup Request?"
+          checked={hasFollowupRequest}
+          onPress={handleFollowupRequestCheckboxToggle}
+        />
+      </View>
       <TouchableOpacity
         style={{
           backgroundColor: "#007BFF",
@@ -61,6 +90,10 @@ function SourceQuery({ sourceFilter, setSourceFilter, queryStatus }) {
 SourceQuery.propTypes = {
   sourceFilter: PropTypes.string.isRequired,
   setSourceFilter: PropTypes.func.isRequired,
+  hasSpectrum: PropTypes.bool.isRequired,
+  setHasSpectrum: PropTypes.func.isRequired,
+  hasFollowupRequest: PropTypes.bool.isRequired,
+  setHasFollowupRequest: PropTypes.func.isRequired,
   queryStatus: PropTypes.bool.isRequired,
 };
 
