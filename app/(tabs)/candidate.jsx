@@ -7,7 +7,7 @@ import CandidateSwiper from "../../components/CandidateSwiper";
 
 function CandidateList() {
   const params = useLocalSearchParams();
-  const { id, save, reject } = params;
+  const { id, save, reject, savedStatus } = params;
 
   const [candidates, setCandidates] = useState(null);
   const [pageInfo, setPageInfo] = useState(null);
@@ -18,6 +18,7 @@ function CandidateList() {
     // Define parameters
     const get_params = {
       groupIDs: [id],
+      savedStatus,
       // Add any other parameters as needed
     };
 
@@ -31,7 +32,7 @@ function CandidateList() {
       });
     }
     fetchData();
-  }, [id]);
+  }, [id, savedStatus]);
 
   // Render an empty component if data is null
   if (candidates === null || candidates === undefined) {

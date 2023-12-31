@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Link } from "expo-router";
 import { Text, View, Button } from "../../components/Themed";
 import { Chip } from "react-native-paper";
@@ -66,17 +71,37 @@ function GcnEvents() {
     fetchUserData();
   }, []);
 
+  const styles = StyleSheet.create({
+    itemContainer: {
+      width: "95%",
+      height: 100,
+      overflow: "hidden",
+      backgroundColor: "lightgray",
+      borderRadius: 10,
+      padding: 20,
+      marginTop: 10,
+      marginRight: 5,
+      flexDirection: "row",
+      flexWrap: "wrap",
+    },
+    text: {
+      fontSize: 12,
+      fontWeight: "bold",
+      backgroundColor: "lightgray",
+    },
+    linkText: {
+      fontSize: 12,
+      fontWeight: "bold",
+      color: "blue",
+      backgroundColor: "lightgray",
+    },
+  });
+
   // Render each row of information
   const renderItem = ({ item }) => {
     const eventUrl = `${userData.url}/gcn_events/${item.dateobs}`;
     return (
-      <View
-        style={{
-          padding: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: "#ccc",
-        }}
-      >
+      <ScrollView style={styles.itemContainer}>
         <Link
           push
           href={{
@@ -84,21 +109,20 @@ function GcnEvents() {
             params: { dateobs: item.dateobs },
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-            {item.dateobs}
-          </Text>
-          <View
-            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
-          >
+          <View>
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: "bold",
+                backgroundColor: "lightgray",
+              }}
+            >
+              {item.dateobs}
+            </Text>
+          </View>
+          <View>
             {item.tags?.map((tag) => (
-              <View
-                key={tag}
-                style={{
-                  padding: 5,
-                  margin: 5,
-                  borderRadius: 5,
-                }}
-              >
+              <View key={tag}>
                 <Chip mode="outlined" selectedColor={gcnTags[tag]}>
                   {tag}
                 </Chip>
@@ -106,7 +130,7 @@ function GcnEvents() {
             ))}
           </View>
         </Link>
-      </View>
+      </ScrollView>
     );
   };
 
@@ -135,19 +159,6 @@ function GcnEvents() {
     key: item,
   }));
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 16,
-    },
-    text: {
-      marginHorizontal: 10, // Adjust the margin between Text components
-      fontSize: 16,
-    },
-  });
-
   const handleTagChange = (value) => {
     if (value && value !== -1) {
       setSelectedTag(value);
@@ -162,7 +173,7 @@ function GcnEvents() {
 
   return (
     <View>
-      <View style={styles.container}>
+      <View>
         <Text style={styles.text}>Tag to filter by:</Text>
         <RNPickerSelect
           style={picker_style}
@@ -172,7 +183,6 @@ function GcnEvents() {
           useNativeAndroidPickerStyle={false}
           hideDoneBar
         />
-        <Text style={styles.text}>{selectedTag}</Text>
       </View>
       <Button title="Load More" onPress={handleLoadMore} />
       {!queryStatus && events ? (

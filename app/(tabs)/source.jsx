@@ -26,7 +26,7 @@ function Source() {
 
   const styles = StyleSheet.create({
     itemContainer: {
-      width: "80%",
+      width: "95%",
       height: 600,
       overflow: "hidden",
       backgroundColor: "lightgray",

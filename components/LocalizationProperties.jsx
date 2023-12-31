@@ -39,28 +39,40 @@ function LocalizationProperties({ data }) {
     },
   });
 
-  const renderItem = ({ item }) => (
-    <View style={board_styles.row}>
-      <Text style={board_styles.cell}>{ra_to_hours(item.center?.ra, ":")}</Text>
-      <Text style={board_styles.cell}>{dec_to_dms(item.center?.dec, ":")}</Text>
-      <Text style={board_styles.cell}>
-        {" "}
-        {item.properties[0].data?.distmean?.toFixed(0)}{" "}
-      </Text>
-      <Text style={board_styles.cell}>
-        {" "}
-        {item.properties[0].data?.area_90?.toExponential(1)}{" "}
-      </Text>
-    </View>
-  );
+  const renderItem = ({ item }) => {
+    let properties;
+    if (item.properties && item.properties.length > 0) {
+      // eslint-disable-next-line prefer-destructuring
+      properties = item.properties[0];
+    }
+
+    return (
+      <View style={board_styles.row}>
+        <Text style={board_styles.cell}>
+          {ra_to_hours(item.center?.ra, ":")}
+        </Text>
+        <Text style={board_styles.cell}>
+          {dec_to_dms(item.center?.dec, ":")}
+        </Text>
+        <Text style={board_styles.cell}>
+          {" "}
+          {properties?.data?.area_90?.toFixed(1)}{" "}
+        </Text>
+        <Text style={board_styles.cell}>
+          {" "}
+          {properties?.data?.distmean?.toFixed(0)}{" "}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <View style={board_styles.table}>
       <View style={board_styles.header}>
         <Text style={board_styles.headerCell}>RA</Text>
         <Text style={board_styles.headerCell}>Dec</Text>
-        <Text style={board_styles.headerCell}>Distance</Text>
         <Text style={board_styles.headerCell}>Sky Area</Text>
+        <Text style={board_styles.headerCell}>Distance</Text>
       </View>
       <FlatList
         data={data}
@@ -75,18 +87,24 @@ function LocalizationProperties({ data }) {
 LocalizationProperties.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.objectOf({
-      data: PropTypes.objectOf({
-        FAR: PropTypes.number,
-        num_instruments: PropTypes.number,
-        BNS: PropTypes.number,
-        NSBH: PropTypes.number,
-        BBH: PropTypes.number,
-        HasNS: PropTypes.number,
-        HasRemnant: PropTypes.number,
-      }),
-      id: PropTypes.number,
+      properties: PropTypes.arrayOf(
+        PropTypes.objectOf({
+          FAR: PropTypes.number,
+          num_instruments: PropTypes.number,
+          BNS: PropTypes.number,
+          NSBH: PropTypes.number,
+          BBH: PropTypes.number,
+          HasNS: PropTypes.number,
+          HasRemnant: PropTypes.number,
+        })
+      ),
+      id: PropTypes.number.isRequired,
     })
-  ).isRequired,
+  ),
+};
+
+LocalizationProperties.defaultProps = {
+  data: null,
 };
 
 export default LocalizationProperties;

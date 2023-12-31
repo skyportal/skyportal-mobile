@@ -139,12 +139,38 @@ LeaderBoard.propTypes = {
   ).isRequired,
 };
 
+const savedStatusSelectOptions = [
+  { value: "all", label: "regardless of saved status" },
+  { value: "savedToAllSelected", label: "and is saved to all selected groups" },
+  {
+    value: "savedToAnySelected",
+    label: "and is saved to at least one of the selected groups",
+  },
+  {
+    value: "savedToAnyAccessible",
+    label: "and is saved to at least one group I have access to",
+  },
+  {
+    value: "notSavedToAnyAccessible",
+    label: "and is not saved to any of group I have access to",
+  },
+  {
+    value: "notSavedToAnySelected",
+    label: "and is not saved to any of the selected groups",
+  },
+  {
+    value: "notSavedToAllSelected",
+    label: "and is not saved to all of the selected groups",
+  },
+];
+
 function Candidates() {
   const [groups, setGroups] = useState(null);
   const [queryStatus, setQueryStatus] = useState(false);
   const [selectedScanGroup, setSelectedScanGroup] = useState(null);
   const [selectedSaveGroup, setSelectedSaveGroup] = useState(null);
   const [selectedRejectGroup, setSelectedRejectGroup] = useState(null);
+  const [savedStatus, setSavedStatus] = useState(null);
   const [scanners, setScanners] = useState(null);
   const [selectedTimeSpan, setSelectedTimeSpan] = useState(null);
 
@@ -226,7 +252,7 @@ function Candidates() {
     }
 
     fetchScanners();
-  }, []);
+  }, [selectedTimeSpan]);
 
   // Render an empty component if data is null
   if (groups === null || selectedScanGroup === null) {
@@ -238,6 +264,12 @@ function Candidates() {
     value: item.id,
     key: item.id,
   }));
+
+  const handleSavedStatusChange = (value) => {
+    if (value && value !== -1) {
+      setSavedStatus(value);
+    }
+  };
 
   const handleScanChange = (value) => {
     if (value && value !== -1) {
@@ -300,6 +332,18 @@ function Candidates() {
       {!queryStatus && groups ? (
         <View>
           <View style={styles.container}>
+            <Text style={styles.text}>Saved status:</Text>
+            <RNPickerSelect
+              style={picker_style}
+              items={savedStatusSelectOptions}
+              onValueChange={handleSavedStatusChange}
+              value={savedStatus}
+              useNativeAndroidPickerStyle={false}
+              hideDoneBar
+            />
+          </View>
+
+          <View style={styles.container}>
             <Text style={styles.text}>Group to scan for:</Text>
             <RNPickerSelect
               style={picker_style}
@@ -348,6 +392,7 @@ function Candidates() {
                 id: selectedScanGroup,
                 save: selectedSaveGroup,
                 reject: selectedRejectGroup,
+                savedStatus,
               },
             }}
             asChild

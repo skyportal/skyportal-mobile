@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mcoughlin.skyportal",
-      "buildNumber": "7"
+      "buildNumber": "8"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +24,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mcoughlin.skyportal",
-      "versionCode": 7
+      "versionCode": 8
     },
     "web": {
       "bundler": "metro",

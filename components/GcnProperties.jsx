@@ -37,7 +37,7 @@ function GcnProperties({ data }) {
     },
   });
 
-  const renderItem = ({ item }) => (
+  const renderGWItem = ({ item }) => (
     <View style={board_styles.row}>
       <Text style={board_styles.cell}>
         {" "}
@@ -56,20 +56,59 @@ function GcnProperties({ data }) {
     </View>
   );
 
+  const renderGRBItem = ({ item }) => (
+    <View style={board_styles.row}>
+      <Text style={board_styles.cell}>
+        {item.data?.Burst_Inten?.toFixed(0)}{" "}
+      </Text>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.Data_Signif.toFixed(1)}{" "}
+      </Text>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.Trig_Timescale.toFixed(4)}{" "}
+      </Text>
+      <Text style={board_styles.cell}>
+        {" "}
+        {item.data?.Hardness_Ratio.toFixed(3)}{" "}
+      </Text>
+    </View>
+  );
+
   return (
     <View style={board_styles.table}>
-      <View style={board_styles.header}>
-        <Text style={board_styles.headerCell}>FAR</Text>
-        <Text style={board_styles.headerCell}># Inst.</Text>
-        <Text style={board_styles.headerCell}>BNS/NSBH/BBH</Text>
-        <Text style={board_styles.headerCell}>NS/Remnant</Text>
-      </View>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        scrollEnabled={false}
-      />
+      {data[0].data.num_instruments ? (
+        <>
+          <View style={board_styles.header}>
+            <Text style={board_styles.headerCell}>FAR</Text>
+            <Text style={board_styles.headerCell}># Inst.</Text>
+            <Text style={board_styles.headerCell}>BNS/NSBH/BBH</Text>
+            <Text style={board_styles.headerCell}>NS/Remnant</Text>
+          </View>
+          <FlatList
+            data={data}
+            renderItem={renderGWItem}
+            keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={false}
+          />
+        </>
+      ) : (
+        <>
+          <View style={board_styles.header}>
+            <Text style={board_styles.headerCell}>Intensity</Text>
+            <Text style={board_styles.headerCell}>Significance</Text>
+            <Text style={board_styles.headerCell}>Time</Text>
+            <Text style={board_styles.headerCell}>Hardness_Ratio</Text>
+          </View>
+          <FlatList
+            data={data}
+            renderItem={renderGRBItem}
+            keyExtractor={(item) => item.id.toString()}
+            scrollEnabled={false}
+          />
+        </>
+      )}
     </View>
   );
 }

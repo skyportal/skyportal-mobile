@@ -93,17 +93,21 @@ function GcnEvent() {
             <Text style={styles.linkText}>{data.dateobs}</Text>
           </TouchableOpacity>
 
-          {data.properties ? (
-            <GcnProperties data={data.properties} />
-          ) : (
-            <Text />
-          )}
+          <View>
+            {data.properties ? (
+              <GcnProperties data={data.properties} />
+            ) : (
+              <Text />
+            )}
+          </View>
 
-          {data.localizations ? (
-            <LocalizationProperties data={data.localizations} />
-          ) : (
-            <Text />
-          )}
+          <View>
+            {data.localizations ? (
+              <LocalizationProperties data={data.localizations} />
+            ) : (
+              <Text />
+            )}
+          </View>
 
           <Text style={{ marginTop: 10, fontSize: 16, fontWeight: "bold" }}>
             Comments:
