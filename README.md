@@ -29,6 +29,16 @@ npm install
 npx expo start
 ```
 
+## Debugging package issues
+
+Expo runs into package versioning issues sometimes. The easiest way to fix this is to run:
+
+```
+npx expo install --fix
+```
+
+and then commit the resulting package.json file.
+
 ## Production builds
 
 SkyPortal Mobile relies on <a href="https://docs.expo.dev/build/introduction/">EAS Build</a> for production builds.
