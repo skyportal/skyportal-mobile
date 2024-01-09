@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNPickerSelect from "react-native-picker-select";
 import { Text, View, Button } from "./Themed.tsx";
 
+import QRScanner from "./QRScanner";
 import PopupMessage from "./PopupMessage";
 
 const styles = StyleSheet.create({
@@ -86,7 +87,7 @@ function Login() {
         value={textInput}
         onChangeText={(text) => setTextInput(text)}
       />
-
+      <QRScanner setTextInput={setTextInput} />
       <Button title="Login" onPress={saveData} />
 
       <PopupMessage
