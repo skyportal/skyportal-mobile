@@ -90,7 +90,7 @@ function QRScanner({ setTextInput }) {
       ) : (
         <View style={styles.resultContainer}>
           <TouchableOpacity style={styles.button} onPress={startScanning}>
-            <Text style={styles.buttonText}>Start Scanning</Text>
+            <Text style={styles.buttonText}>Use SkyPortal QR Code</Text>
           </TouchableOpacity>
         </View>
       )}

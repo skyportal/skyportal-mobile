@@ -42,7 +42,7 @@ function Star({ type }) {
       break;
     default:
       starColor = "#000000"; // Default color (black) for unknown type
-      starIcon = "?"; // Default icon for unknown type
+      starIcon = type; // Default icon for unknown type
   }
 
   return (
@@ -195,59 +195,14 @@ function Candidates() {
 
   useEffect(() => {
     // Define the API endpoint URL
-    // eslint-disable-next-line no-use-before-define
-    // eslint-disable-next-line no-unused-vars
     const endpoint = "internal/source_savers";
-
     async function fetchScanners() {
       // eslint-disable-next-line no-use-before-define
       // eslint-disable-next-line no-unused-vars
       const sinceDaysAgo = selectedTimeSpan
         ? selectedTimeSpan.label
         : defaultPrefs.sinceDaysAgo;
-      // const response = await GET(endpoint, { sinceDaysAgo });
-      const response = {
-        status: "success",
-        data: [
-          {
-            author: {
-              username: "provisioned-admin",
-              first_name: "provisioned",
-              last_name: "admin",
-              affiliations: [],
-              contact_email: null,
-              contact_phone: null,
-              oauth_uid: null,
-              expiration_date: null,
-              id: 1,
-              created_at: "2023-12-29T14:38:28.046268",
-              modified: "2023-12-29T17:41:18.964282",
-              gravatar_url:
-                "https://secure.gravatar.com/avatar/74c1a55d67d81634eb5aaaf5d82489b4?d=blank",
-            },
-            saves: 21,
-          },
-          {
-            author: {
-              username: "testadmin",
-              first_name: "Jada",
-              last_name: "Lilleboe",
-              affiliations: [],
-              contact_email: null,
-              contact_phone: null,
-              oauth_uid: null,
-              expiration_date: null,
-              id: 3,
-              created_at: "2023-12-29T15:24:56.372068",
-              modified: "2023-12-29T20:54:41.205119",
-              gravatar_url:
-                "https://secure.gravatar.com/avatar/9283a03246ef2dacdc21a9b137817ec1?d=blank",
-            },
-            saves: 8,
-          },
-        ],
-        version: "0.9.dev0+git20231229.a344ca6a",
-      };
+      const response = await GET(endpoint, { sinceDaysAgo, maxNumSavers: 10 });
       setScanners(response.data);
     }
 
@@ -322,13 +277,6 @@ function Candidates() {
 
   return (
     <View>
-      <TimeSpans onSelectTimeSpan={handleSelectTimeSpan} />
-      {scanners ? (
-        <LeaderBoard data={scanners} />
-      ) : (
-        <Text>No scanner data available...</Text>
-      )}
-
       {!queryStatus && groups ? (
         <View>
           <View style={styles.container}>
@@ -402,6 +350,13 @@ function Candidates() {
         </View>
       ) : (
         <Text>Loading...</Text>
+      )}
+
+      <TimeSpans onSelectTimeSpan={handleSelectTimeSpan} />
+      {scanners ? (
+        <LeaderBoard data={scanners} />
+      ) : (
+        <Text>No scanner data available...</Text>
       )}
     </View>
   );
