@@ -63,15 +63,15 @@ function GcnProperties({ data }) {
       </Text>
       <Text style={board_styles.cell}>
         {" "}
-        {item.data?.Data_Signif.toFixed(1)}{" "}
+        {item.data?.Data_Signif?.toFixed(1)}{" "}
       </Text>
       <Text style={board_styles.cell}>
         {" "}
-        {item.data?.Trig_Timescale.toFixed(4)}{" "}
+        {item.data?.Trig_Timescale?.toFixed(4)}{" "}
       </Text>
       <Text style={board_styles.cell}>
         {" "}
-        {item.data?.Hardness_Ratio.toFixed(3)}{" "}
+        {item.data?.Hardness_Ratio?.toFixed(3)}{" "}
       </Text>
     </View>
   );
