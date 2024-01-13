@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "expo-router";
-import { FlatList, StyleSheet } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { Text, View, Button } from "../../components/Themed.tsx";
+import { FlatList, StyleSheet, useColorScheme } from "react-native";
+import { Text, View, Button, RNPickerSelect } from "../../components/Themed.tsx";
 
 import { GET } from "../../components/API";
 import UserAvatar from "../../components/UserAvatar";
@@ -26,6 +25,9 @@ function Star({ type }) {
   let starColor;
   let starIcon;
 
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
+
   // Set star color and icon based on the type prop
   switch (type) {
     case "gold":
@@ -41,13 +43,13 @@ function Star({ type }) {
       starIcon = "★"; // Bronze star icon
       break;
     default:
-      starColor = "#000000"; // Default color (black) for unknown type
+      starColor = isDarkMode ? '#CCCCCC' : '#333333'; // Default color (black) for unknown type
       starIcon = type; // Default icon for unknown type
   }
 
   return (
     <View>
-      <Text style={{ color: starColor }}>{starIcon}</Text>
+      <Text style={{ color: starColor, borderWidth: 0 }}>{starIcon}</Text>
     </View>
   );
 }
@@ -59,15 +61,8 @@ Star.propTypes = {
 function LeaderBoard({ data }) {
   const board_styles = StyleSheet.create({
     table: {
-      padding: 16,
       justifyContent: "center",
       alignItems: "center",
-    },
-    header: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 8,
     },
     row: {
       flexDirection: "row",
@@ -78,15 +73,11 @@ function LeaderBoard({ data }) {
       borderColor: "#cccccc",
       paddingVertical: 8,
     },
-    headerCell: {
-      fontWeight: "bold",
-      marginHorizontal: 10,
-      justifyContent: "center",
-    },
     cell: {
       height: "100%",
       justifyContent: "center",
       marginHorizontal: 18,
+      borderWidth: 0,
     },
   });
 
@@ -108,12 +99,6 @@ function LeaderBoard({ data }) {
 
   return (
     <View style={board_styles.table}>
-      <View style={board_styles.header}>
-        <Text style={board_styles.headerCell}>#</Text>
-        <Text style={board_styles.headerCell}>Avatar</Text>
-        <Text style={board_styles.headerCell}>User name</Text>
-        <Text style={board_styles.headerCell}>Saved sources</Text>
-      </View>
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -244,30 +229,15 @@ function Candidates() {
     }
   };
 
-  const picker_style = {
-    inputAndroid: {
-      color: "black",
-      backgroundColor: "transparent",
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: "purple",
-      borderRadius: 8,
-      paddingRight: 30,
-    },
-  };
-
   const styles = StyleSheet.create({
     container: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 16,
     },
     text: {
-      marginHorizontal: 10, // Adjust the margin between Text components
-      fontSize: 16,
+        padding: 20,
+      fontSize: 14,
     },
   });
 
@@ -282,7 +252,6 @@ function Candidates() {
           <View style={styles.container}>
             <Text style={styles.text}>Saved status:</Text>
             <RNPickerSelect
-              style={picker_style}
               items={savedStatusSelectOptions}
               onValueChange={handleSavedStatusChange}
               value={savedStatus}
@@ -294,7 +263,6 @@ function Candidates() {
           <View style={styles.container}>
             <Text style={styles.text}>Group to scan for:</Text>
             <RNPickerSelect
-              style={picker_style}
               items={options}
               onValueChange={handleScanChange}
               value={selectedScanGroup}
@@ -307,7 +275,6 @@ function Candidates() {
           <View style={styles.container}>
             <Text style={styles.text}>Group to save candidate to:</Text>
             <RNPickerSelect
-              style={picker_style}
               items={options}
               onValueChange={handleSaveChange}
               value={selectedSaveGroup}
@@ -322,7 +289,6 @@ function Candidates() {
               Group to save rejected candidates to:
             </Text>
             <RNPickerSelect
-              style={picker_style}
               items={options}
               onValueChange={handleRejectChange}
               value={selectedRejectGroup}

@@ -1,14 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  View,
-  TextInput,
-  Text,
   ActivityIndicator,
-  TouchableOpacity,
 } from "react-native";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { CheckBox } from "@rneui/themed";
+import { Text, TextInput, TouchableOpacity, View, CheckBox } from "./Themed.tsx";
 
 function SourceQuery({
   sourceFilter,
@@ -32,14 +28,15 @@ function SourceQuery({
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+    <View style={{ padding: 10,     borderColor: 'gray',
+    borderWidth: 1, width: "98%"}}>
+      <View style={{ flexDirection: "row" }}>
+      <Text style={{ fontSize: 12, fontWeight: "bold", marginBottom: 10 }}>
         Filter Sources By
       </Text>
       <TextInput
         style={{
           height: 40,
-          borderColor: "gray",
           borderWidth: 1,
           marginBottom: 10,
           paddingLeft: 10,
@@ -48,6 +45,7 @@ function SourceQuery({
         value={sourceFilter}
         onChangeText={(text) => setSourceFilter(text)}
       />
+      </View>
       <View style={{ flexDirection: "row" }}>
         <CheckBox
           title="Spectrum?"
@@ -62,7 +60,6 @@ function SourceQuery({
       </View>
       <TouchableOpacity
         style={{
-          backgroundColor: "#007BFF",
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 5,
@@ -76,11 +73,9 @@ function SourceQuery({
         {queryStatus ? (
           <ActivityIndicator
             size="small"
-            color="#ffffff"
-            style={{ marginRight: 10 }}
           />
         ) : (
-          <Text style={{ color: "#ffffff" }}>Make Source Query</Text>
+          <Text>Make Source Query</Text>
         )}
       </TouchableOpacity>
     </View>

@@ -48,6 +48,7 @@ export default function TabLayout() {
         name="sources"
         options={{
           title: "Sources",
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="file-tray-stacked" color={color} />
           ),
@@ -57,6 +58,7 @@ export default function TabLayout() {
         name="candidates"
         options={{
           title: "Candidates",
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="compass" color={color} />
           ),
@@ -66,6 +68,7 @@ export default function TabLayout() {
         name="gcn_events"
         options={{
           title: "Events",
+          tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color }) => <TabBarIcon name="radio" color={color} />,
         }}
       />

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { Text, View } from "./Themed.tsx";
+import { Text, View, TouchableOpacity } from "./Themed.tsx";
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +27,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "blue",
     borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
   },
 });
 

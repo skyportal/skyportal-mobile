@@ -62,26 +62,24 @@ function Sources() {
   const styles = StyleSheet.create({
     itemContainer: {
       width: "95%",
-      height: 100,
+      height: 150,
       overflow: "hidden",
-      backgroundColor: "lightgray",
       borderRadius: 10,
       padding: 20,
       marginTop: 10,
       marginRight: 5,
       flexDirection: "row",
       alignItems: "center",
+      backgroundColor: "lightgray",
     },
     itemText: {
       fontSize: 12,
       fontWeight: "bold",
-      backgroundColor: "lightgray",
     },
     linkText: {
       fontSize: 12,
       fontWeight: "bold",
       color: "blue",
-      backgroundColor: "lightgray",
     },
   });
 
@@ -106,16 +104,18 @@ function Sources() {
               style={{ width: 80, height: 80 }}
             />
           </View>
-          <View style={{ backgroundColor: "lightgray" }}>
-            <Text style={styles.linkText}>{item.id}</Text>
-            <Text style={styles.itemText}>RA: {ra_to_hours(item.ra, ":")}</Text>
+          <View>
             <Text style={styles.itemText}>
-              Dec: {dec_to_dms(item.dec, ":")}
+              {item.id}
+            </Text>
+            <Text style={styles.itemText}>
+              {dayjs().to(dayjs.utc(`${item.created_at}Z`))}
             </Text>
           </View>
           <View>
+            <Text style={styles.itemText}>RA: {ra_to_hours(item.ra, ":")}</Text>
             <Text style={styles.itemText}>
-              {dayjs().to(dayjs.utc(`${item.created_at}Z`))}
+              Dec: {dec_to_dms(item.dec, ":")}
             </Text>
           </View>
         </Link>

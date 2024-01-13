@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Text } from "./Themed.tsx";
+import { StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity } from "./Themed.tsx";
 
 function TimeSpans({ onSelectTimeSpan }) {
   const timespans = [

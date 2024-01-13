@@ -3,12 +3,11 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  TouchableOpacity,
   Linking,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text, View } from "../../components/Themed.tsx";
+import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
@@ -131,7 +130,7 @@ function Source() {
                   borderRadius: 5,
                 }}
               >
-                <Text style={{ color: "black" }}>
+                <Text>
                   {classification.author_name} : {classification.classification}
                 </Text>
               </View>
@@ -154,10 +153,10 @@ function Source() {
                   username={thisComment.author?.username}
                   gravatarUrl={thisComment.author?.gravatar_url}
                 />
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                <Text style={{ fontSize: 12, fontWeight: "bold" }}>
                   {thisComment.author?.username}
                 </Text>
-                <Text style={{ marginRight: 60, marginLeft: 15 }}>
+                <Text style={{ fontSize: 12, marginRight: 40, marginLeft: 20 }}>
                   {thisComment.text}
                 </Text>
               </View>

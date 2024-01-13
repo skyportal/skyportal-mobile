@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNPickerSelect from "react-native-picker-select";
-import { Text, View, Button } from "./Themed.tsx";
+import { RNPickerSelect, Text, TextInput, View, Button } from "./Themed.tsx";
 
 import QRScanner from "./QRScanner";
 import PopupMessage from "./PopupMessage";
@@ -53,19 +52,6 @@ function Login() {
     <View style={styles.container}>
       <Text style={styles.title}>Selected URL: {url}</Text>
       <RNPickerSelect
-        style={{
-          inputAndroid: {
-            color: "black",
-            backgroundColor: "transparent",
-            fontSize: 16,
-            paddingHorizontal: 10,
-            paddingVertical: 8,
-            borderWidth: 0.5,
-            borderColor: "purple",
-            borderRadius: 8,
-            paddingRight: 30,
-          },
-        }}
         onValueChange={(value) => setUrl(value)}
         items={[
           { label: "fritz", value: "https://fritz.science" },
@@ -76,13 +62,6 @@ function Login() {
         hideDoneBar
       />
       <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingLeft: 10,
-        }}
         placeholder="Enter your token here"
         value={textInput}
         onChangeText={(text) => setTextInput(text)}

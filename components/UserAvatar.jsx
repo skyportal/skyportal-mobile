@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { View, Image, StyleSheet } from "react-native";
-import { Text } from "./Themed.tsx";
+import { Image, StyleSheet } from "react-native";
+import { View, Text } from "./Themed.tsx";
 
 function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
   const [hasRealPicture, setHasRealPicture] = useState(false);
@@ -20,13 +20,13 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
     },
     initialsContainer: {
       flex: 1,
-      backgroundColor: "#3498db", // Background color for initials
+      width: 50,
+      height: 60,
       justifyContent: "center",
       alignItems: "center",
     },
     initialsText: {
-      color: "#ffffff", // Text color for initials
-      fontSize: 18,
+      fontSize: 12,
       fontWeight: "bold",
     },
   });
@@ -83,7 +83,8 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
         <View
           style={[styles.initialsContainer, { backgroundColor: usercolor }]}
         >
-          <Text style={styles.initialsText}>{backUpLetters}</Text>
+          <Text style={[{backgroundColor: usercolor},
+              styles.initialsText]}>{backUpLetters}</Text>
         </View>
       )}
     </View>

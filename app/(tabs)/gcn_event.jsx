@@ -28,7 +28,6 @@ function GcnEvent() {
       width: "95%",
       height: 600,
       overflow: "hidden",
-      backgroundColor: "lightgray",
       borderRadius: 10,
       padding: 20,
       margin: 10,

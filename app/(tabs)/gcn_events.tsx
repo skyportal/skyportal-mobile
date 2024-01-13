@@ -3,13 +3,11 @@ import {
   ScrollView,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import { Link } from "expo-router";
-import { Text, View, Button } from "../../components/Themed";
+import { Text, View, Button, RNPickerSelect, TouchableOpacity } from "../../components/Themed";
 import { Chip } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNPickerSelect from "react-native-picker-select";
 
 import { GET } from "../../components/API";
 
@@ -87,13 +85,11 @@ function GcnEvents() {
     text: {
       fontSize: 12,
       fontWeight: "bold",
-      backgroundColor: "lightgray",
     },
     linkText: {
       fontSize: 12,
       fontWeight: "bold",
       color: "blue",
-      backgroundColor: "lightgray",
     },
   });
 
@@ -114,7 +110,6 @@ function GcnEvents() {
               style={{
                 fontSize: 12,
                 fontWeight: "bold",
-                backgroundColor: "lightgray",
               }}
             >
               {item.dateobs}
@@ -132,20 +127,6 @@ function GcnEvents() {
         </Link>
       </ScrollView>
     );
-  };
-
-  const picker_style = {
-    inputAndroid: {
-      color: "black",
-      backgroundColor: "transparent",
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: "purple",
-      borderRadius: 8,
-      paddingRight: 30,
-    },
   };
 
   // Render an empty component if data is null
@@ -176,7 +157,6 @@ function GcnEvents() {
       <View>
         <Text style={styles.text}>Tag to filter by:</Text>
         <RNPickerSelect
-          style={picker_style}
           items={options}
           onValueChange={handleTagChange}
           value={selectedTag}
