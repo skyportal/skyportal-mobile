@@ -83,8 +83,9 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
         <View
           style={[styles.initialsContainer, { backgroundColor: usercolor }]}
         >
-          <Text style={[{backgroundColor: usercolor},
-              styles.initialsText]}>{backUpLetters}</Text>
+          <Text style={[{ backgroundColor: usercolor }, styles.initialsText]}>
+            {backUpLetters}
+          </Text>
         </View>
       )}
     </View>

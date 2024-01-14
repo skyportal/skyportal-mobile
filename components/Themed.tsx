@@ -9,11 +9,12 @@ import {
   TouchableOpacity as DefaultTouchableOpacity,
   View as DefaultView,
   Button as DefaultButton,
+  Modal as DefaultModal,
   StyleSheet,
   useColorScheme,
 } from "react-native";
 
-import {default as DefaultRNPickerSelect} from "react-native-picker-select";
+import { default as DefaultRNPickerSelect } from "react-native-picker-select";
 import { CheckBox as DefaultCheckBox } from "@rneui/themed";
 
 type ThemeProps = {
@@ -25,27 +26,29 @@ export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
 export type ButtonProps = ThemeProps & DefaultButton["props"];
 export type TextInputProps = ThemeProps & DefaultTextInput["props"];
-export type TouchableOpacityProps = ThemeProps & DefaultTouchableOpacity["props"];
+export type TouchableOpacityProps = ThemeProps &
+  DefaultTouchableOpacity["props"];
 export type RNPickerSelectProps = ThemeProps & DefaultRNPickerSelect["props"];
 export type CheckBoxProps = ThemeProps & DefaultCheckBox["props"];
+export type ModalProps = ThemeProps & DefaultModal["props"];
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   lightMode: {
-    backgroundColor: '#FFFFFF', // Light mode background color
+    backgroundColor: "#FFFFFF", // Light mode background color
   },
   darkMode: {
-    backgroundColor: '#121212', // Dark mode background color
+    backgroundColor: "#121212", // Dark mode background color
   },
-  lightButton: { 
-    color: '#007AFF', 
+  lightButton: {
+    color: "#007AFF",
   },
-  darkButton: {     
-    color: '#CCCCCC',  
+  darkButton: {
+    color: "#CCCCCC",
   },
   text: {
     fontSize: 16,
@@ -54,32 +57,32 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   lightText: {
-    color: '#333333', // Light mode text color
-    backgroundColor: '#FFFFFF', // Light mode background color
-    borderColor: '#CCCCCC', // Light mode border color
+    color: "#333333", // Light mode text color
+    backgroundColor: "#FFFFFF", // Light mode background color
+    borderColor: "#CCCCCC", // Light mode border color
     borderWidth: 1, // Light mode border width
   },
   darkText: {
-    color: '#CCCCCC', // Dark mode text color
-    backgroundColor: '#121212', // Dark mode background color
-    borderColor: '#555555', // Dark mode border color
+    color: "#CCCCCC", // Dark mode text color
+    backgroundColor: "#121212", // Dark mode background color
+    borderColor: "#555555", // Dark mode border color
     borderWidth: 1, // Dark mode border width
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     paddingHorizontal: 10,
     borderRadius: 5,
     marginVertical: 10,
   },
   lightInput: {
-    backgroundColor: '#FFFFFF', // Light mode background color
-    color: '#333333', // Light mode text color
+    backgroundColor: "#FFFFFF", // Light mode background color
+    color: "#333333", // Light mode text color
   },
   darkInput: {
-    backgroundColor: '#121212', // Dark mode background color
-    color: '#CCCCCC', // Dark mode text color
+    backgroundColor: "#121212", // Dark mode background color
+    color: "#CCCCCC", // Dark mode text color
   },
   touchable: {
     padding: 10,
@@ -87,99 +90,157 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   lightTouchable: {
-    backgroundColor: '#FFFFFF', // Light mode background color
-    borderColor: '#CCCCCC', // Light mode border color
+    backgroundColor: "#FFFFFF", // Light mode background color
+    borderColor: "#CCCCCC", // Light mode border color
     borderWidth: 1, // Light mode border width
   },
   darkTouchable: {
-    backgroundColor: '#121212', // Dark mode background color
-    borderColor: '#555555', // Dark mode border color
+    backgroundColor: "#121212", // Dark mode background color
+    borderColor: "#555555", // Dark mode border color
     borderWidth: 1, // Dark mode border width
   },
-    lightCheckbox: {
-      containerStyle: {
-        backgroundColor: '#FFFFFF', // Light mode background color
-        borderColor: '#CCCCCC', // Light mode border color
-      },
-      textStyle: {
-        color: '#333333', // Light mode text color
-      },
-      checkedColor: '#007AFF', // Light mode checked color
+  lightCheckbox: {
+    containerStyle: {
+      backgroundColor: "#FFFFFF", // Light mode background color
+      borderColor: "#CCCCCC", // Light mode border color
     },
-    darkCheckbox: {
-      containerStyle: {
-        backgroundColor: '#121212', // Dark mode background color
-        borderColor: '#555555', // Dark mode border color
-      },
-      textStyle: {
-        color: '#CCCCCC', // Dark mode text color
-      },
-      checkedColor: '#4CA2FF', // Dark mode checked color
+    textStyle: {
+      color: "#333333", // Light mode text color
     },
+    checkedColor: "#007AFF", // Light mode checked color
+  },
+  darkCheckbox: {
+    containerStyle: {
+      backgroundColor: "#121212", // Dark mode background color
+      borderColor: "#555555", // Dark mode border color
+    },
+    textStyle: {
+      color: "#CCCCCC", // Dark mode text color
+    },
+    checkedColor: "#4CA2FF", // Dark mode checked color
+  },
 });
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
-  return <DefaultText style={[styles.text, isDarkMode ? styles.darkText : styles.lightText, style]} {...otherProps} />;
-
+  return (
+    <DefaultText
+      style={[
+        styles.text,
+        isDarkMode ? styles.darkText : styles.lightText,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
 }
 
-export function TextInput(props: TextInputProps) {                        
+export function TextInput(props: TextInputProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-                                       
-  const colorScheme = useColorScheme();     
-  const isDarkMode = colorScheme === 'dark';
 
-  return <DefaultTextInput style={[styles.input, isDarkMode ? styles.darkInput : styles.lightInput, style]} {...otherProps} />;
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
 
-} 
+  return (
+    <DefaultTextInput
+      style={[
+        styles.input,
+        isDarkMode ? styles.darkInput : styles.lightInput,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
+}
 
 export function TouchableOpacity(props: TouchableOpacityProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
-  return <DefaultTouchableOpacity style={[styles.touchable, isDarkMode ? styles.darkTouchable : styles.lightTouchable, style]} {...otherProps} />;
-
-} 
+  return (
+    <DefaultTouchableOpacity
+      style={[
+        styles.touchable,
+        isDarkMode ? styles.darkTouchable : styles.lightTouchable,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
+}
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
-  return <DefaultView style={[styles.container, isDarkMode ? styles.darkMode : styles.lightMode, style]} {...otherProps} />;
+  return (
+    <DefaultView
+      style={[
+        styles.container,
+        isDarkMode ? styles.darkMode : styles.lightMode,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
 }
 
 export function Button(props: ButtonProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
-  return <DefaultButton style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton, style]} {...otherProps} />;
+  return (
+    <DefaultButton
+      style={[
+        styles.button,
+        isDarkMode ? styles.darkButton : styles.lightButton,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
 }
 
 export function CheckBox(props: CheckboxProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
-  return <DefaultCheckBox containerStyle={[isDarkMode ? styles.darkCheckbox.containerStyle : styles.lightCheckbox.containerStyle, style]} textStyle={[isDarkMode ? styles.darkCheckbox.textStyle : styles.lightCheckbox.textStyle, style]} {...otherProps} />;
+  return (
+    <DefaultCheckBox
+      containerStyle={[
+        isDarkMode
+          ? styles.darkCheckbox.containerStyle
+          : styles.lightCheckbox.containerStyle,
+        style,
+      ]}
+      textStyle={[
+        isDarkMode
+          ? styles.darkCheckbox.textStyle
+          : styles.lightCheckbox.textStyle,
+        style,
+      ]}
+      {...otherProps}
+    />
+  );
 }
 
 export function RNPickerSelect(props: RNPickerSelectProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
   const pickerStyle = StyleSheet.create({
     inputIOS: {
@@ -187,32 +248,67 @@ export function RNPickerSelect(props: RNPickerSelectProps) {
       paddingVertical: 12,
       paddingHorizontal: 10,
       borderWidth: 1,
-      borderColor: isDarkMode ? '#555555' : '#CCCCCC',
+      borderColor: isDarkMode ? "#555555" : "#CCCCCC",
       borderRadius: 4,
-      color: isDarkMode ? '#CCCCCC' : '#333333',
+      color: isDarkMode ? "#CCCCCC" : "#333333",
       paddingRight: 30, // to ensure the text is never behind the icon
-      backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
+      backgroundColor: isDarkMode ? "#121212" : "#FFFFFF",
     },
     inputAndroid: {
       fontSize: 16,
       paddingHorizontal: 10,
       paddingVertical: 8,
       borderWidth: 1,
-      borderColor: isDarkMode ? '#555555' : '#CCCCCC',
+      borderColor: isDarkMode ? "#555555" : "#CCCCCC",
       borderRadius: 4,
-      color: isDarkMode ? '#CCCCCC' : '#333333',
+      color: isDarkMode ? "#CCCCCC" : "#333333",
       paddingRight: 30, // to ensure the text is never behind the icon
-      backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
+      backgroundColor: isDarkMode ? "#121212" : "#FFFFFF",
     },
     placeholder: {
-      color: isDarkMode ? '#888888' : '#AAAAAA',
+      color: isDarkMode ? "#888888" : "#AAAAAA",
     },
   });
 
-  return <DefaultRNPickerSelect       style={{
+  return (
+    <DefaultRNPickerSelect
+      style={{
         inputIOS: pickerStyle.inputIOS,
         inputAndroid: pickerStyle.inputAndroid,
         placeholder: pickerStyle.placeholder,
-        style
-      }} {...otherProps} />;
+        style,
+      }}
+      {...otherProps}
+    />
+  );
+}
+
+export function Modal(props: ModalProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === "dark";
+
+  const modalStyle = StyleSheet.create({
+    modalContent: {
+      width: "70%", // Adjust the width as needed
+      height: "50%", // Adjust the height as needed
+      backgroundColor: isDarkMode ? "#1E1E1E" : "#FFFFFF",
+      padding: 20,
+      borderRadius: 10,
+      elevation: 5,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  });
+
+  return (
+    <Modal
+      style={{
+        modalStyle,
+        style,
+      }}
+      {...otherProps}
+    />
+  );
 }

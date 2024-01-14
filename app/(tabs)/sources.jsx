@@ -19,6 +19,7 @@ function Sources() {
   const [sourceFilter, setSourceFilter] = useState("");
   const [hasSpectrum, setHasSpectrum] = useState(false);
   const [hasFollowupRequest, setHasFollowupRequest] = useState(false);
+  const [sourceScreenOpen, setSourceScreenOpen] = useState(false);
 
   const [userData, setUserData] = useState(null);
   const [queryStatus, setQueryStatus] = useState(false);
@@ -105,9 +106,7 @@ function Sources() {
             />
           </View>
           <View>
-            <Text style={styles.itemText}>
-              {item.id}
-            </Text>
+            <Text style={styles.itemText}>{item.id}</Text>
             <Text style={styles.itemText}>
               {dayjs().to(dayjs.utc(`${item.created_at}Z`))}
             </Text>
@@ -129,6 +128,10 @@ function Sources() {
     }
   };
 
+  const toggleSourceScreen = () => {
+    setSourceScreenOpen(!sourceScreenOpen);
+  };
+
   return (
     <View>
       <SourceQuery
@@ -139,6 +142,8 @@ function Sources() {
         hasFollowupRequest={hasFollowupRequest}
         setHasFollowupRequest={setHasFollowupRequest}
         queryStatus={queryStatus}
+        isOpen={sourceScreenOpen}
+        onClose={toggleSourceScreen}
       />
       <Button title="Load More" onPress={handleLoadMore} />
       {!queryStatus && sources ? (

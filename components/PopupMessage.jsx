@@ -9,10 +9,8 @@ function SwipeMessage({ visible, message, onClose }) {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
     modalContent: {
-      backgroundColor: "white",
       padding: 20,
       borderRadius: 10,
     },

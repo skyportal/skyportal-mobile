@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "expo-router";
 import { FlatList, StyleSheet, useColorScheme } from "react-native";
-import { Text, View, Button, RNPickerSelect } from "../../components/Themed.tsx";
+import {
+  Text,
+  View,
+  Button,
+  RNPickerSelect,
+} from "../../components/Themed.tsx";
 
 import { GET } from "../../components/API";
 import UserAvatar from "../../components/UserAvatar";
@@ -26,7 +31,7 @@ function Star({ type }) {
   let starIcon;
 
   const colorScheme = useColorScheme();
-  const isDarkMode = colorScheme === 'dark';
+  const isDarkMode = colorScheme === "dark";
 
   // Set star color and icon based on the type prop
   switch (type) {
@@ -43,7 +48,7 @@ function Star({ type }) {
       starIcon = "★"; // Bronze star icon
       break;
     default:
-      starColor = isDarkMode ? '#CCCCCC' : '#333333'; // Default color (black) for unknown type
+      starColor = isDarkMode ? "#CCCCCC" : "#333333"; // Default color (black) for unknown type
       starIcon = type; // Default icon for unknown type
   }
 
@@ -236,7 +241,7 @@ function Candidates() {
       justifyContent: "center",
     },
     text: {
-        padding: 20,
+      padding: 20,
       fontSize: 14,
     },
   });

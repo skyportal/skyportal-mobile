@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  Image,
-  Linking,
-} from "react-native";
+import { StyleSheet, ScrollView, Image, Linking } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
