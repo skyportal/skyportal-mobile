@@ -60,7 +60,7 @@ function Star({ type }) {
 }
 
 Star.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 function LeaderBoard({ data }) {
@@ -115,7 +115,7 @@ function LeaderBoard({ data }) {
 
 LeaderBoard.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.objectOf({
+    PropTypes.shape({
       author: PropTypes.shape({
         first_name: PropTypes.string,
         last_name: PropTypes.string,

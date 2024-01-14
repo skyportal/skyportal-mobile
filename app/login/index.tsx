@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   RNPickerSelect,
   Text,
@@ -42,12 +42,12 @@ function Login() {
   };
 
   const saveData = async () => {
-    // Save user inputs to AsyncStorage
+    // Save user inputs to SecureStore
     const dataToSave = {
       token: textInput,
       url,
     };
-    await AsyncStorage.setItem("userData", JSON.stringify(dataToSave));
+    await SecureStore.setItemAsync("userData", JSON.stringify(dataToSave));
 
     setShowModal(true);
     setModalMessage("Successfully saved login!");
@@ -56,7 +56,7 @@ function Login() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }
@@ -73,7 +73,7 @@ function Login() {
           { label: "fritz", value: "https://fritz.science" },
           { label: "icare", value: "https://skyportal-icare.ijclab.in2p3.fr" },
         ]}
-        placeholder={{}}
+        placeholder={{ label: "Select your SkyPortal instance", value: null }}
         useNativeAndroidPickerStyle={false}
         hideDoneBar
       />

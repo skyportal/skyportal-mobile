@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 async function API(endpoint, method = "GET", body = {}, otherArgs = {}) {
-  const data = await AsyncStorage.getItem("userData");
+  const data = await SecureStore.getItemAsync("userData");
   const parsedData = JSON.parse(data);
   const apiUrl = `${parsedData.url}/api/${endpoint}`;
   const accessToken = parsedData.token;

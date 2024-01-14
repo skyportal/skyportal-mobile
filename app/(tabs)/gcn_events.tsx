@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, FlatList } from "react-native";
 import { Link } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+
 import {
   Text,
   View,
@@ -9,7 +11,6 @@ import {
   TouchableOpacity,
 } from "../../components/Themed";
 import { Chip } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { GET } from "../../components/API";
 
@@ -64,7 +65,7 @@ function GcnEvents() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

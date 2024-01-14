@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 import { View, Text } from "./Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "./units";
@@ -124,7 +124,7 @@ function CandidateCard({
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

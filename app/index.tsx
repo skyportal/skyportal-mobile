@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Image } from "react-native";
 import { Link } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
 import { View, Text, Button } from "../components/Themed";
 
@@ -41,7 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

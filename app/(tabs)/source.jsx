@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, Image, Linking } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
+
 import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
@@ -59,7 +60,7 @@ function Source() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.setItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

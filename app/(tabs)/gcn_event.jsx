@@ -6,9 +6,9 @@ import {
   Linking,
 } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Text, View } from "../../components/Themed.tsx";
+import * as SecureStore from "expo-secure-store";
 
+import { Text, View } from "../../components/Themed.tsx";
 import { GET } from "../../components/API";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
@@ -61,7 +61,7 @@ function GcnEvent() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await AsyncStorage.getItem("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }
