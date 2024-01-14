@@ -26,27 +26,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => (
-            <Link href="/info" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <Ionicons
-                    name="help-circle-outline"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="sources"
-        options={{
           title: "Sources",
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({ color }) => (

@@ -7,14 +7,14 @@ import { Text, View, TouchableOpacity } from "./Themed.tsx";
 const styles = StyleSheet.create({
   container: {
     width: "80%",
-    height: "60%",
+    height: "40%",
   },
   camera: {
     flex: 1,
   },
   resultContainer: {
-    width: "100%",
-    height: "33%",
+    width: "50%",
+    height: "43%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -23,10 +23,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
-    marginTop: 20,
-    padding: 10,
+    marginTop: 0,
     backgroundColor: "blue",
-    borderRadius: 5,
   },
 });
 

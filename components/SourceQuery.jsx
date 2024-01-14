@@ -1,14 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ActivityIndicator } from "react-native";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  CheckBox,
-} from "./Themed.tsx";
+import { Text, TextInput, View, CheckBox } from "./Themed.tsx";
 
 function SourceQuery({
   sourceFilter,
@@ -17,12 +9,7 @@ function SourceQuery({
   setHasSpectrum,
   hasFollowupRequest,
   setHasFollowupRequest,
-  queryStatus,
 }) {
-  const handleSourceQuery = async () => {
-    setSourceFilter(sourceFilter);
-  };
-
   const handleSpectrumCheckboxToggle = () => {
     setHasSpectrum(!hasSpectrum);
   };
@@ -34,6 +21,7 @@ function SourceQuery({
   return (
     <View
       style={{
+        flex: 0.25,
         padding: 10,
         borderColor: "gray",
         borderWidth: 1,
@@ -58,13 +46,6 @@ function SourceQuery({
           value={sourceFilter}
           onChangeText={(text) => setSourceFilter(text)}
         />
-        <TouchableOpacity onPress={handleSourceQuery} disabled={queryStatus}>
-          {queryStatus ? (
-            <ActivityIndicator size="small" />
-          ) : (
-            <Text>Query</Text>
-          )}
-        </TouchableOpacity>
       </View>
       <View
         style={{ flexDirection: "row", width: "95%", height: 10, margin: 0 }}
@@ -91,7 +72,6 @@ SourceQuery.propTypes = {
   setHasSpectrum: PropTypes.func.isRequired,
   hasFollowupRequest: PropTypes.bool.isRequired,
   setHasFollowupRequest: PropTypes.func.isRequired,
-  queryStatus: PropTypes.bool.isRequired,
 };
 
 export default SourceQuery;

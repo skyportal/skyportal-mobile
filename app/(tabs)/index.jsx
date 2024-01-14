@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, Image } from "react-native";
+import { StyleSheet, FlatList, Image, ActivityIndicator } from "react-native";
 import { Link } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
-import { Text, View, Button } from "../../components/Themed.tsx";
+import {
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+} from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
@@ -145,7 +150,13 @@ function Sources() {
         isOpen={sourceScreenOpen}
         onClose={toggleSourceScreen}
       />
-      <Button title="Load More" onPress={handleLoadMore} />
+      <TouchableOpacity onPress={handleLoadMore} disabled={queryStatus}>
+        {queryStatus ? (
+          <ActivityIndicator size="small" />
+        ) : (
+          <Button title="Load More" onPress={handleLoadMore} />
+        )}
+      </TouchableOpacity>
       {!queryStatus && sources ? (
         <View>
           <FlatList

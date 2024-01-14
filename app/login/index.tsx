@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
+import { Link } from "expo-router";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { RNPickerSelect, Text, TextInput, View, Button } from "./Themed.tsx";
+import {
+  RNPickerSelect,
+  Text,
+  TextInput,
+  View,
+  Button,
+} from "../../components/Themed.tsx";
 
-import QRScanner from "./QRScanner";
-import PopupMessage from "./PopupMessage";
+import QRScanner from "../../components/QRScanner";
+import PopupMessage from "../../components/PopupMessage";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
+    flex: 0.8,
     justifyContent: "center",
+    alignItems: "center",
+    height: "80%",
   },
   title: {
     fontSize: 14,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
 });
 
 function Login() {
+  const [userData, setUserData] = useState(null);
   const [textInput, setTextInput] = useState("");
   const [url, setUrl] = useState("https://fritz.science");
+  const [dataSaved, setDataSaved] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -46,10 +51,21 @@ function Login() {
 
     setShowModal(true);
     setModalMessage("Successfully saved login!");
+    setDataSaved(true);
   };
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const userdata = await AsyncStorage.getItem("userData");
+      const parsedData = JSON.parse(userdata);
+      setUserData(parsedData);
+    }
+    fetchUserData();
+  }, [dataSaved]);
 
   return (
     <View style={styles.container}>
+      <View />
       <Text style={styles.title}>Selected URL: {url}</Text>
       <RNPickerSelect
         onValueChange={(value) => setUrl(value)}
@@ -67,13 +83,28 @@ function Login() {
         onChangeText={(text) => setTextInput(text)}
       />
       <QRScanner setTextInput={setTextInput} />
-      <Button title="Login" onPress={saveData} />
-
+      <Button title="Save Login" onPress={saveData} />
       <PopupMessage
         visible={showModal}
         message={modalMessage}
         onClose={closeModal}
       />
+      {userData ? (
+        <View>
+          <Link
+            push
+            href={{
+              pathname: "/(tabs)",
+            }}
+            asChild
+          >
+            <Button title="Continue" />
+          </Link>
+        </View>
+      ) : (
+        <View />
+      )}
+      <View />
     </View>
   );
 }
