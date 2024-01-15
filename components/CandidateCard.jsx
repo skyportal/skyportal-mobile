@@ -88,14 +88,10 @@ function CandidateCard({
   ).current;
 
   const styles = StyleSheet.create({
-    itemContainer: {
+    container: {
       width: "95%",
-      height: 700,
-      overflow: "hidden",
+      flex: 0.95,
       backgroundColor: "lightgray",
-      borderRadius: 20,
-      padding: 20,
-      margin: 5,
     },
     itemText: {
       fontSize: 18,
@@ -132,20 +128,25 @@ function CandidateCard({
   }, []);
 
   const renderItem = ({ item }) => (
-    <View>
-      <Text style={{ textAlign: "center" }}>{item.type}</Text>
+    <View style={{ flex: 1 }}>
+      <Text style={{ textAlign: "center", borderWidth: 0, fontSize: 12 }}>
+        {item.type}
+      </Text>
       <Image
         key={item.id}
         source={{ uri: item.public_url }}
-        style={{ width: 140, height: 140 }}
+        style={{ width: 100, height: 100 }}
         resizeMode="cover"
       />
     </View>
   );
 
-  // Render an empty component if data is null
   if (data === null) {
-    return null; // or any other empty component you want to render
+    return null;
+  }
+
+  if (userData === null) {
+    return null;
   }
 
   const sourceUrl = `${userData.url}/source/${data.id}`;
@@ -163,7 +164,7 @@ function CandidateCard({
         ]}
         {...panResponder.panHandlers}
       >
-        <View style={styles.itemContainer}>
+        <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {
               Linking.openURL(sourceUrl);
@@ -171,17 +172,19 @@ function CandidateCard({
           >
             <Text style={styles.linkText}>{data.id}</Text>
           </TouchableOpacity>
-          <Text style={styles.itemText}>RA: {ra_to_hours(data.ra, ":")}</Text>
-          <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec, ":")}</Text>
+          <Text style={styles.itemText}>
+            {ra_to_hours(data.ra, ":")}, {dec_to_dms(data.dec, ":")}
+          </Text>
 
-          <Text style={styles.itemText}>Images:</Text>
           {orderedThumbnails ? (
             <FlatList
+              contentContainerStyle={{ margin: 4, width: 200 }}
+              horizontal={false}
               data={orderedThumbnails}
               renderItem={renderItem}
               keyExtractor={(item) => item.id.toString()}
               numColumns={2}
-              showsHorizontalScrollIndicator={false} // Hide horizontal scrollbar
+              showsHorizontalScrollIndicator // Hide horizontal scrollbar
             />
           ) : (
             <View />

@@ -187,8 +187,6 @@ function Candidates() {
     // Define the API endpoint URL
     const endpoint = "internal/source_savers";
     async function fetchScanners() {
-      // eslint-disable-next-line no-use-before-define
-      // eslint-disable-next-line no-unused-vars
       const sinceDaysAgo = selectedTimeSpan
         ? selectedTimeSpan.label
         : defaultPrefs.sinceDaysAgo;
@@ -236,6 +234,7 @@ function Candidates() {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 0.2,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
@@ -252,8 +251,30 @@ function Candidates() {
 
   return (
     <View>
+      <TimeSpans onSelectTimeSpan={handleSelectTimeSpan} />
+      {scanners ? (
+        <LeaderBoard data={scanners} />
+      ) : (
+        <Text>No scanner data available...</Text>
+      )}
       {!queryStatus && groups ? (
         <View>
+          <Link
+            push
+            href={{
+              pathname: "/candidate",
+              params: {
+                id: selectedScanGroup,
+                save: selectedSaveGroup,
+                reject: selectedRejectGroup,
+                savedStatus,
+              },
+            }}
+            asChild
+          >
+            <Button title="Let's do some scanning!" />
+          </Link>
+
           <View style={styles.container}>
             <Text style={styles.text}>Saved status:</Text>
             <RNPickerSelect
@@ -302,32 +323,9 @@ function Candidates() {
             />
             <Text style={styles.text}>{selectedRejectGroup}</Text>
           </View>
-
-          <Link
-            push
-            href={{
-              pathname: "/(tabs)/candidate",
-              params: {
-                id: selectedScanGroup,
-                save: selectedSaveGroup,
-                reject: selectedRejectGroup,
-                savedStatus,
-              },
-            }}
-            asChild
-          >
-            <Button title="Let's do some scanning!" />
-          </Link>
         </View>
       ) : (
         <Text>Loading...</Text>
-      )}
-
-      <TimeSpans onSelectTimeSpan={handleSelectTimeSpan} />
-      {scanners ? (
-        <LeaderBoard data={scanners} />
-      ) : (
-        <Text>No scanner data available...</Text>
       )}
     </View>
   );

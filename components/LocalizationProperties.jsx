@@ -86,9 +86,9 @@ function LocalizationProperties({ data }) {
 
 LocalizationProperties.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.objectOf({
+    PropTypes.shape({
       properties: PropTypes.arrayOf(
-        PropTypes.objectOf({
+        PropTypes.shape({
           FAR: PropTypes.number,
           num_instruments: PropTypes.number,
           BNS: PropTypes.number,

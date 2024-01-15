@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { Text } from "../../components/Themed.tsx";
+import { Text, View } from "../../components/Themed.tsx";
 
 import { GET } from "../../components/API";
 import CandidateSwiper from "../../components/CandidateSwiper";
@@ -36,7 +36,11 @@ function CandidateList() {
 
   // Render an empty component if data is null
   if (candidates === null || candidates === undefined) {
-    return <Text>Querying for candidates...</Text>;
+    return (
+      <View>
+        <Text>Querying for candidates...</Text>
+      </View>
+    );
   }
 
   if (candidates.length === 0) {

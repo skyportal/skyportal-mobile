@@ -60,16 +60,19 @@ function Source() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.setItemAsync("userData");
+      const userdata = await SecureStore.getItemAsync("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }
     fetchUserData();
   }, []);
 
-  // Render an empty component if data is null
   if (data === null) {
-    return null; // or any other empty component you want to render
+    return null;
+  }
+
+  if (userData === null) {
+    return null;
   }
 
   const sourceUrl = `${userData.url}/source/${id}`;

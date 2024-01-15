@@ -21,6 +21,7 @@ function TimeSpans({ onSelectTimeSpan }) {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 0.25,
       flexDirection: "row",
       justifyContent: "space-around",
       marginTop: 10,

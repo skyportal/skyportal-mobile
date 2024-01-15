@@ -129,6 +129,9 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="login/index" options={{ headerShown: false }} />
+        <Stack.Screen name="source/index" options={{ headerShown: false }} />
+        <Stack.Screen name="gcn_event/index" options={{ headerShown: false }} />
+        <Stack.Screen name="candidate/index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>

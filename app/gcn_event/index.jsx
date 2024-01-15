@@ -68,9 +68,12 @@ function GcnEvent() {
     fetchUserData();
   }, []);
 
-  // Render an empty component if data is null
   if (data === null) {
-    return null; // or any other empty component you want to render
+    return null;
+  }
+
+  if (userData === null) {
+    return null;
   }
 
   const eventUrl = `${userData.url}/gcn_events/${dateobs}`;

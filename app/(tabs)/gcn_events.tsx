@@ -104,7 +104,7 @@ function GcnEvents() {
         <Link
           push
           href={{
-            pathname: "/(tabs)/gcn_event",
+            pathname: "/gcn_event",
             params: { dateobs: item.dateobs },
           }}
         >
@@ -157,7 +157,7 @@ function GcnEvents() {
 
   return (
     <View>
-      <View>
+      <View style={{ flex: 0.25 }}>
         <Text style={styles.text}>Tag to filter by:</Text>
         <RNPickerSelect
           items={options}
