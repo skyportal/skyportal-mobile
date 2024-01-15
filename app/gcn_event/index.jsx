@@ -35,6 +35,7 @@ function GcnEvent() {
     itemText: {
       fontSize: 18,
       fontWeight: "bold",
+      borderWidth: 0,
     },
     linkText: {
       fontSize: 18,

@@ -8,7 +8,7 @@ import { ra_to_hours, dec_to_dms } from "./units";
 function LocalizationProperties({ data }) {
   const board_styles = StyleSheet.create({
     table: {
-      padding: 16,
+      padding: 0,
       justifyContent: "center",
       alignItems: "center",
     },
@@ -16,26 +16,30 @@ function LocalizationProperties({ data }) {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 8,
+      marginBottom: 0,
+      borderWidth: 0,
     },
     row: {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 4,
+      marginBottom: 0,
       borderBottomWidth: 0,
       borderColor: "#cccccc",
       paddingVertical: 8,
+      borderWidth: 0,
     },
     headerCell: {
       fontWeight: "bold",
-      marginHorizontal: 12,
+      marginHorizontal: 0,
       justifyContent: "center",
+      borderWidth: 0,
     },
     cell: {
       height: "100%",
       justifyContent: "center",
-      marginHorizontal: 6,
+      marginHorizontal: 0,
+      borderWidth: 0,
     },
   });
 
@@ -49,18 +53,14 @@ function LocalizationProperties({ data }) {
     return (
       <View style={board_styles.row}>
         <Text style={board_styles.cell}>
-          {ra_to_hours(item.center?.ra, ":")}
-        </Text>
-        <Text style={board_styles.cell}>
+          {ra_to_hours(item.center?.ra, ":")},{" "}
           {dec_to_dms(item.center?.dec, ":")}
         </Text>
         <Text style={board_styles.cell}>
-          {" "}
-          {properties?.data?.area_90?.toFixed(1)}{" "}
+          {properties?.data?.area_90?.toFixed(1)}
         </Text>
         <Text style={board_styles.cell}>
-          {" "}
-          {properties?.data?.distmean?.toFixed(0)}{" "}
+          {properties?.data?.distmean?.toFixed(0)}
         </Text>
       </View>
     );
@@ -69,10 +69,9 @@ function LocalizationProperties({ data }) {
   return (
     <View style={board_styles.table}>
       <View style={board_styles.header}>
-        <Text style={board_styles.headerCell}>RA</Text>
-        <Text style={board_styles.headerCell}>Dec</Text>
-        <Text style={board_styles.headerCell}>Sky Area</Text>
-        <Text style={board_styles.headerCell}>Distance</Text>
+        <Text style={board_styles.headerCell}>RA/Dec</Text>
+        <Text style={board_styles.headerCell}>Area [sq. deg.]</Text>
+        <Text style={board_styles.headerCell}>Dist [Mpc]</Text>
       </View>
       <FlatList
         data={data}

@@ -6,7 +6,7 @@ import { Text, View } from "./Themed.tsx";
 function GcnProperties({ data }) {
   const board_styles = StyleSheet.create({
     table: {
-      padding: 16,
+      padding: 0,
       justifyContent: "center",
       alignItems: "center",
     },
@@ -14,7 +14,7 @@ function GcnProperties({ data }) {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 8,
+      marginBottom: 0,
     },
     row: {
       flexDirection: "row",
@@ -23,34 +23,31 @@ function GcnProperties({ data }) {
       marginBottom: 4,
       borderBottomWidth: 0,
       borderColor: "#cccccc",
-      paddingVertical: 8,
+      paddingVertical: 0,
     },
     headerCell: {
       fontWeight: "bold",
       marginHorizontal: 10,
       justifyContent: "center",
+      borderWidth: 0,
     },
     cell: {
       height: "100%",
       justifyContent: "center",
-      marginHorizontal: 10,
+      marginHorizontal: 0,
+      borderWidth: 0,
     },
   });
 
   const renderGWItem = ({ item }) => (
     <View style={board_styles.row}>
-      <Text style={board_styles.cell}>
-        {" "}
-        {item.data?.FAR?.toExponential(0)}{" "}
-      </Text>
+      <Text style={board_styles.cell}>{item.data?.FAR?.toExponential(0)}</Text>
       <Text style={board_styles.cell}> {item.data?.num_instruments} </Text>
       <Text style={board_styles.cell}>
-        {" "}
         {item.data?.BNS?.toFixed(2)}/{item.data?.NSBH?.toFixed(2)}/
-        {item.data?.BBH?.toFixed(2)}{" "}
+        {item.data?.BBH?.toFixed(2)}
       </Text>
       <Text style={board_styles.cell}>
-        {" "}
         {item.data?.HasNS?.toFixed(2)}/{item.data?.HasRemnant?.toFixed(2)}
       </Text>
     </View>
@@ -59,19 +56,16 @@ function GcnProperties({ data }) {
   const renderGRBItem = ({ item }) => (
     <View style={board_styles.row}>
       <Text style={board_styles.cell}>
-        {item.data?.Burst_Inten?.toFixed(0)}{" "}
+        {item.data?.Burst_Inten?.toFixed(0)}
       </Text>
       <Text style={board_styles.cell}>
-        {" "}
-        {item.data?.Data_Signif?.toFixed(1)}{" "}
+        {item.data?.Data_Signif?.toFixed(1)}
       </Text>
       <Text style={board_styles.cell}>
-        {" "}
-        {item.data?.Trig_Timescale?.toFixed(4)}{" "}
+        {item.data?.Trig_Timescale?.toFixed(4)}
       </Text>
       <Text style={board_styles.cell}>
-        {" "}
-        {item.data?.Hardness_Ratio?.toFixed(3)}{" "}
+        {item.data?.Hardness_Ratio?.toFixed(3)}
       </Text>
     </View>
   );
@@ -82,9 +76,9 @@ function GcnProperties({ data }) {
         <>
           <View style={board_styles.header}>
             <Text style={board_styles.headerCell}>FAR</Text>
-            <Text style={board_styles.headerCell}># Inst.</Text>
+            <Text style={board_styles.headerCell}>#</Text>
             <Text style={board_styles.headerCell}>BNS/NSBH/BBH</Text>
-            <Text style={board_styles.headerCell}>NS/Remnant</Text>
+            <Text style={board_styles.headerCell}>NS/Rem</Text>
           </View>
           <FlatList
             data={data}
@@ -115,8 +109,8 @@ function GcnProperties({ data }) {
 
 GcnProperties.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.objectOf({
-      data: PropTypes.objectOf({
+    PropTypes.shape({
+      data: PropTypes.shape({
         FAR: PropTypes.number,
         num_instruments: PropTypes.number,
         BNS: PropTypes.number,

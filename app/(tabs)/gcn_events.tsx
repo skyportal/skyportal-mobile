@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, FlatList } from "react-native";
 import { Link } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 
+import { TagCloud } from "react-tagcloud/rn";
+
 import {
   Text,
   View,
@@ -29,8 +31,23 @@ function GcnEvents() {
     GRB: "#f89406",
     AMON: "#3a87ad",
     Significant: "#8B008B",
+    Gold: "#FFD700",
+    Bronze: "#CD7F32",
+    Subthreshold: "#808080",
     retracted: "#ffffff",
   };
+  const ignoredTags = [
+    "GW",
+    "LVC",
+    "MultiInstrument",
+    "pycbc",
+    "gstlal",
+    "spiir",
+    "MBTA",
+    "AllSky",
+    "< 1 per year",
+    "< 1 per 100 years",
+  ];
 
   useEffect(() => {
     // Define the API endpoint URL
@@ -96,9 +113,29 @@ function GcnEvents() {
     },
   });
 
+  const customRenderer = (tag, size, color) => {
+    return (
+      <Text
+        key={tag.value}
+        style={{
+          fontSize: size,
+          margin: 1,
+          padding: 1,
+          color: gcnTags[tag.value] ? gcnTags[tag.value] : color,
+        }}
+      >
+        {tag.value}
+      </Text>
+    );
+  };
+
   // Render each row of information
   const renderItem = ({ item }) => {
     const eventUrl = `${userData.url}/gcn_events/${item.dateobs}`;
+    const tags = item.tags
+      .filter((value) => !ignoredTags.includes(value))
+      .map((value) => ({ value, count: 1 }));
+
     return (
       <ScrollView style={styles.itemContainer}>
         <Link
@@ -118,14 +155,14 @@ function GcnEvents() {
               {item.dateobs}
             </Text>
           </View>
-          <View>
-            {item.tags?.map((tag) => (
-              <View key={tag}>
-                <Chip mode="outlined" selectedColor={gcnTags[tag]}>
-                  {tag}
-                </Chip>
-              </View>
-            ))}
+          <View style={{ width: 120, height: 60 }}>
+            <TagCloud
+              minSize={15}
+              maxSize={15}
+              tags={tags}
+              shuffle={false}
+              renderer={customRenderer}
+            />
           </View>
         </Link>
       </ScrollView>
