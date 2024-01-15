@@ -15,8 +15,9 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
+      "usesNonExemptEncryption": false,
       "bundleIdentifier": "com.mcoughlin.skyportal",
-      "buildNumber": "10"
+      "buildNumber": "11"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +25,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mcoughlin.skyportal",
-      "versionCode": 10,
+      "versionCode": 11,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

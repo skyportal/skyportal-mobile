@@ -29,6 +29,12 @@ npm install
 npx expo start
 ```
 
+If you want to check a build in production-like settings, you should use:
+
+```
+npx expo start --no-dev --minify
+```
+
 ## Debugging package issues
 
 Expo runs into package versioning issues sometimes. The easiest way to fix this is to run:
