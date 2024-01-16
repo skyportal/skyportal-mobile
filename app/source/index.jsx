@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, Image, Linking } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 
 import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
+import { getItem } from "../../components/storage";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
 import orderAndModifyThumbnailList from "../../components/thumbnails";
@@ -60,7 +60,7 @@ function Source() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

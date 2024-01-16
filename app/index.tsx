@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Image } from "react-native";
 import { Link } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 
 import { View, Text, Button } from "../components/Themed";
+import { getItem } from "../components/storage";
 
 const styles = StyleSheet.create({
   infoContainer: {
@@ -41,7 +41,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

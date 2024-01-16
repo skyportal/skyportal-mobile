@@ -9,10 +9,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import * as SecureStore from "expo-secure-store";
 import { View, Text } from "./Themed.tsx";
 
 import { ra_to_hours, dec_to_dms } from "./units";
+import { getItem } from "./storage";
 import { GET } from "./API";
 import PopupMessage from "./PopupMessage";
 import orderAndModifyThumbnailList from "./thumbnails";
@@ -120,7 +120,7 @@ function CandidateCard({
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

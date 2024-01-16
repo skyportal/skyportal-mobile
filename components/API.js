@@ -1,10 +1,10 @@
-import * as SecureStore from "expo-secure-store";
+import { getItem } from "./storage";
 
 async function API(endpoint, method = "GET", body = {}, otherArgs = {}) {
-  const data = await SecureStore.getItemAsync("userData");
+  const data = await getItem("userData");
   const parsedData = JSON.parse(data);
-  const apiUrl = `${parsedData.url}/api/${endpoint}`;
-  const accessToken = parsedData.token;
+  const apiUrl = `${parsedData?.url}/api/${endpoint}`;
+  const accessToken = parsedData?.token;
 
   let fetchInit = {
     credentials: "same-origin",

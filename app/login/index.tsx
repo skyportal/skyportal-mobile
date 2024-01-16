@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { Link } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 
 import {
   RNPickerSelect,
@@ -11,6 +10,7 @@ import {
   Button,
 } from "../../components/Themed.tsx";
 
+import { getItem, setItem } from "../../components/storage";
 import QRScanner from "../../components/QRScanner";
 import PopupMessage from "../../components/PopupMessage";
 
@@ -42,12 +42,12 @@ function Login() {
   };
 
   const saveData = async () => {
-    // Save user inputs to SecureStore
+    // Save user inputs
     const dataToSave = {
       token: textInput,
       url,
     };
-    await SecureStore.setItemAsync("userData", JSON.stringify(dataToSave));
+    await setItem("userData", JSON.stringify(dataToSave));
 
     setShowModal(true);
     setModalMessage("Successfully saved login!");
@@ -56,7 +56,7 @@ function Login() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

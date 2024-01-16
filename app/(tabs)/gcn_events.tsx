@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, FlatList } from "react-native";
 import { Link } from "expo-router";
-import * as SecureStore from "expo-secure-store";
-
 import { TagCloud } from "react-tagcloud/rn";
+
+import { getItem } from "../../components/storage";
 
 import {
   Text,
@@ -82,7 +82,7 @@ function GcnEvents() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }

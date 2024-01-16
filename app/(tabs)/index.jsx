@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, FlatList, Image, ActivityIndicator } from "react-native";
 import { Link } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 
 import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
@@ -14,6 +13,7 @@ import {
 
 import { ra_to_hours, dec_to_dms } from "../../components/units";
 import { GET } from "../../components/API";
+import { getItem } from "../../components/storage";
 import SourceQuery from "../../components/SourceQuery";
 import orderAndModifyThumbnailList from "../../components/thumbnails";
 
@@ -50,7 +50,7 @@ function Sources() {
 
     async function fetchData() {
       const response = await GET(endpoint, params);
-      setSources(response.data.sources);
+      setSources(response?.data?.sources);
       setQueryStatus(false);
     }
 
@@ -59,7 +59,7 @@ function Sources() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userdata = await SecureStore.getItemAsync("userData");
+      const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
       setUserData(parsedData);
     }
