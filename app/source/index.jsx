@@ -9,6 +9,9 @@ import { GET } from "../../components/API";
 import { getItem } from "../../components/storage";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
+// import PostFollowupRequest from "../../components/PostFollowupRequest";
+import PhotometryPlot from "../../components/PhotometryPlot";
+import SpectraPlot from "../../components/SpectraPlot";
 import orderAndModifyThumbnailList from "../../components/thumbnails";
 
 function Source() {
@@ -16,7 +19,10 @@ function Source() {
   const { id } = params;
 
   const [data, setData] = useState(null);
+  const [config, setConfig] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [photometry, setPhotometry] = useState(null);
+  const [spectra, setSpectra] = useState(null);
   const [comment, setComment] = useState(false);
 
   const styles = StyleSheet.create({
@@ -56,7 +62,34 @@ function Source() {
 
     fetchData();
     setComment(false);
-  }, [comment, id]);
+  }, [id, comment]);
+
+  useEffect(() => {
+    const photometry_endpoint = `sources/${id}/photometry`;
+    async function fetchPhotometry() {
+      const photometry_response = await GET(photometry_endpoint, {});
+      setPhotometry(photometry_response.data);
+    }
+    fetchPhotometry();
+  }, [id]);
+
+  useEffect(() => {
+    const spectra_endpoint = `sources/${id}/spectra`;
+    async function fetchSpectra() {
+      const spectra_response = await GET(spectra_endpoint, {});
+      setSpectra(spectra_response.data.spectra);
+    }
+    fetchSpectra();
+  }, [id]);
+
+  useEffect(() => {
+    const config_endpoint = `config`;
+    async function fetchConfig() {
+      const config_response = await GET(config_endpoint, {});
+      setConfig(config_response.data);
+    }
+    fetchConfig();
+  }, []);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -67,11 +100,19 @@ function Source() {
     fetchUserData();
   }, []);
 
-  if (data === null) {
+  if (data === null || data === undefined) {
     return null;
   }
 
   if (userData === null) {
+    return null;
+  }
+
+  if (photometry === null) {
+    return null;
+  }
+
+  if (spectra === null) {
     return null;
   }
 
@@ -100,6 +141,17 @@ function Source() {
 
           <Text style={styles.itemText}>RA: {ra_to_hours(data.ra, ":")}</Text>
           <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec, ":")}</Text>
+
+          <View style={{ flex: 0.8, width: 200 }}>
+            <PhotometryPlot
+              dm={data.dm}
+              photometry={photometry}
+              config={config}
+            />
+          </View>
+          <View style={{ flex: 0.8, width: 200 }}>
+            <SpectraPlot redshift={data.redshift} spectra={spectra} />
+          </View>
 
           <Text style={{ marginTop: 10, fontSize: 16, fontWeight: "bold" }}>
             Images:

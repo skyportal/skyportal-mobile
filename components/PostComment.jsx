@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  Alert,
-  ActivityIndicator,
-} from "react-native";
+import { Alert, ActivityIndicator } from "react-native";
 
+import { Text, TextInput, View, TouchableOpacity } from "./Themed.tsx";
 import { POST } from "./API";
 
 function PostComment({ sourceId = null, eventId = null, setComment }) {
@@ -72,13 +66,9 @@ function PostComment({ sourceId = null, eventId = null, setComment }) {
         disabled={posting} // Disable the button while loading
       >
         {posting ? (
-          <ActivityIndicator
-            size="small"
-            color="#ffffff"
-            style={{ marginRight: 10 }}
-          />
+          <ActivityIndicator size="small" style={{ marginRight: 10 }} />
         ) : (
-          <Text style={{ color: "#ffffff" }}>Post comment</Text>
+          <Text>Post comment</Text>
         )}
       </TouchableOpacity>
     </View>
