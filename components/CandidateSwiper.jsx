@@ -4,7 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
 
 import CandidateCard from "./CandidateCard";
-import { POST } from "./API";
+import { POST } from "./utils/API";
 
 function CandidateSwiper({ items, save, reject }) {
   const [currentIndex, setCurrentIndex] = useState(0);

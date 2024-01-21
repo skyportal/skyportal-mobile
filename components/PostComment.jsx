@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Alert, ActivityIndicator } from "react-native";
 
 import { Text, TextInput, View, TouchableOpacity } from "./Themed.tsx";
-import { POST } from "./API";
+import { POST } from "./utils/API";
 
 function PostComment({ sourceId = null, eventId = null, setComment }) {
   const [commentData, setCommentData] = useState("");

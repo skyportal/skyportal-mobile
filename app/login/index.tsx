@@ -10,9 +10,9 @@ import {
   Button,
 } from "../../components/Themed.tsx";
 
-import { getItem, setItem } from "../../components/storage";
 import QRScanner from "../../components/QRScanner";
 import PopupMessage from "../../components/PopupMessage";
+import { getItem, setItem } from "../../components/utils/storage";
 
 const styles = StyleSheet.create({
   container: {

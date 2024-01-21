@@ -4,15 +4,16 @@ import { Stack, useLocalSearchParams } from "expo-router";
 
 import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
 
-import { ra_to_hours, dec_to_dms } from "../../components/units";
-import { GET } from "../../components/API";
-import { getItem } from "../../components/storage";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
 // import PostFollowupRequest from "../../components/PostFollowupRequest";
 import PhotometryPlot from "../../components/PhotometryPlot";
 import SpectraPlot from "../../components/SpectraPlot";
-import orderAndModifyThumbnailList from "../../components/thumbnails";
+
+import orderAndModifyThumbnailList from "../../components/utils/thumbnails";
+import { ra_to_hours, dec_to_dms } from "../../components/utils/units";
+import { GET } from "../../components/utils/API";
+import { getItem } from "../../components/utils/storage";
 
 function Source() {
   const params = useLocalSearchParams();
@@ -141,12 +142,13 @@ function Source() {
 
           <Text style={styles.itemText}>RA: {ra_to_hours(data.ra, ":")}</Text>
           <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec, ":")}</Text>
-
           <View style={{ flex: 0.8, width: 200 }}>
             <PhotometryPlot
               dm={data.dm}
               photometry={photometry}
               config={config}
+              height={300}
+              width={300}
             />
           </View>
           <View style={{ flex: 0.8, width: 200 }}>

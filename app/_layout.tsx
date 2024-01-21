@@ -12,7 +12,7 @@ import { useColorScheme } from "react-native";
 import {
   Notifications,
   registerForPushNotificationsAsync,
-} from "../components/notifications";
+} from "../components/utils/notifications";
 
 export {
   // Catch any errors thrown by the Layout component.

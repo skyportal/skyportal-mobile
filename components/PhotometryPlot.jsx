@@ -14,7 +14,7 @@ import { Text } from "./Themed.tsx";
 
 import { PHOT_ZP, mjdnow } from "./utils";
 
-function PhotometryPlot({ dm, photometry }) {
+function PhotometryPlot({ dm, photometry, height, width }) {
   const [data, setData] = useState(null);
   const [photStats, setPhotStats] = useState(null);
 
@@ -192,7 +192,7 @@ function PhotometryPlot({ dm, photometry }) {
     const groupedPhotometry = groupPhotometry(newPhotometry);
     setPhotStats(newPhotStats);
     setData(groupedPhotometry);
-  }, [photometry, now]);
+  }, [photometry]);
 
   if (data === null) {
     return <Text>Loading photometry...</Text>;
@@ -207,6 +207,8 @@ function PhotometryPlot({ dm, photometry }) {
       padding={{ top: 20, bottom: 50, left: 50, right: 20 }}
       theme={VictoryTheme.material}
       domain={{ x: xDomain, y: yDomain }}
+      width={width}
+      height={height}
     >
       <VictoryAxis crossAxis label="Days ago" />
       <VictoryAxis
@@ -254,6 +256,8 @@ function PhotometryPlot({ dm, photometry }) {
 
 PhotometryPlot.propTypes = {
   dm: PropTypes.number,
+  height: PropTypes.number,
+  width: PropTypes.number,
   photometry: PropTypes.arrayOf(
     PropTypes.shape({
       mjd: PropTypes.number.isRequired,
@@ -272,6 +276,8 @@ PhotometryPlot.propTypes = {
 
 PhotometryPlot.defaultProps = {
   dm: null,
+  height: 220,
+  width: 220,
 };
 
 export default PhotometryPlot;

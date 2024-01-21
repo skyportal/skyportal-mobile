@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View } from "../../components/Themed.tsx";
 
-import { GET } from "../../components/API";
+import { GET } from "../../components/utils/API";
 import CandidateSwiper from "../../components/CandidateSwiper";
 
 function CandidateList() {

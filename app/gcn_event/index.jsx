@@ -8,12 +8,13 @@ import {
 import { Stack, useLocalSearchParams } from "expo-router";
 
 import { Text, View } from "../../components/Themed.tsx";
-import { GET } from "../../components/API";
-import { getItem } from "../../components/storage";
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
 import GcnProperties from "../../components/GcnProperties";
 import LocalizationProperties from "../../components/LocalizationProperties";
+
+import { GET } from "../../components/utils/API";
+import { getItem } from "../../components/utils/storage";
 
 function GcnEvent() {
   const params = useLocalSearchParams();

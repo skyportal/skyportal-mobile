@@ -11,11 +11,12 @@ import {
   TouchableOpacity,
 } from "../../components/Themed.tsx";
 
-import { ra_to_hours, dec_to_dms } from "../../components/units";
-import { GET } from "../../components/API";
-import { getItem } from "../../components/storage";
 import SourceQuery from "../../components/SourceQuery";
-import orderAndModifyThumbnailList from "../../components/thumbnails";
+
+import { ra_to_hours, dec_to_dms } from "../../components/utils/units";
+import { GET } from "../../components/utils/API";
+import { getItem } from "../../components/utils/storage";
+import orderAndModifyThumbnailList from "../../components/utils/thumbnails";
 
 dayjs.extend(calendar);
 

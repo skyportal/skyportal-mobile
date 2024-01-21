@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { View, Text } from "./Themed.tsx";
 
-import { ra_to_hours, dec_to_dms } from "./units";
-import { getItem } from "./storage";
-import { GET } from "./API";
 import PopupMessage from "./PopupMessage";
-import orderAndModifyThumbnailList from "./thumbnails";
+import PhotometryPlot from "./PhotometryPlot";
+import { getItem } from "./utils/storage";
+import { GET } from "./utils/API";
+import orderAndModifyThumbnailList from "./utils/thumbnails";
 
 function CandidateCard({
   item: candidate,
@@ -25,7 +25,9 @@ function CandidateCard({
   onSwipeDown,
 }) {
   const [data, setData] = useState(null);
+  const [config, setConfig] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [photometry, setPhotometry] = useState(null);
 
   const translateY = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(0)).current;
@@ -119,6 +121,15 @@ function CandidateCard({
   }, [candidate.id]);
 
   useEffect(() => {
+    const photometry_endpoint = `sources/${candidate.id}/photometry`;
+    async function fetchPhotometry() {
+      const photometry_response = await GET(photometry_endpoint, {});
+      setPhotometry(photometry_response.data);
+    }
+    fetchPhotometry();
+  }, [candidate.id]);
+
+  useEffect(() => {
     async function fetchUserData() {
       const userdata = await getItem("userData");
       const parsedData = JSON.parse(userdata);
@@ -141,11 +152,24 @@ function CandidateCard({
     </View>
   );
 
+  useEffect(() => {
+    const config_endpoint = `config`;
+    async function fetchConfig() {
+      const config_response = await GET(config_endpoint, {});
+      setConfig(config_response.data);
+    }
+    fetchConfig();
+  }, []);
+
   if (data === null) {
     return null;
   }
 
   if (userData === null) {
+    return null;
+  }
+
+  if (photometry === null) {
     return null;
   }
 
@@ -172,23 +196,30 @@ function CandidateCard({
           >
             <Text style={styles.linkText}>{data.id}</Text>
           </TouchableOpacity>
-          <Text style={styles.itemText}>
-            {ra_to_hours(data.ra, ":")}, {dec_to_dms(data.dec, ":")}
-          </Text>
 
-          {orderedThumbnails ? (
-            <FlatList
-              contentContainerStyle={{ margin: 4, width: 200 }}
-              horizontal={false}
-              data={orderedThumbnails}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id.toString()}
-              numColumns={2}
-              showsHorizontalScrollIndicator // Hide horizontal scrollbar
+          <View>
+            <PhotometryPlot
+              dm={data.dm}
+              photometry={photometry}
+              config={config}
             />
-          ) : (
-            <View />
-          )}
+          </View>
+
+          <View>
+            {orderedThumbnails ? (
+              <FlatList
+                contentContainerStyle={{ margin: 4, width: 200 }}
+                horizontal={false}
+                data={orderedThumbnails}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+                numColumns={2}
+                showsHorizontalScrollIndicator // Hide horizontal scrollbar
+              />
+            ) : (
+              <View />
+            )}
+          </View>
         </View>
       </Animated.View>
       <PopupMessage

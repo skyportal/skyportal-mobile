@@ -3,8 +3,6 @@ import { ScrollView, StyleSheet, FlatList } from "react-native";
 import { Link } from "expo-router";
 import { TagCloud } from "react-tagcloud/rn";
 
-import { getItem } from "../../components/storage";
-
 import {
   Text,
   View,
@@ -14,7 +12,8 @@ import {
 } from "../../components/Themed";
 import { Chip } from "react-native-paper";
 
-import { GET } from "../../components/API";
+import { GET } from "../../components/utils/API";
+import { getItem } from "../../components/utils/storage";
 
 function GcnEvents() {
   const [events, setEvents] = useState(null);

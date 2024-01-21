@@ -3,7 +3,7 @@ import { StyleSheet, Image } from "react-native";
 import { Link } from "expo-router";
 
 import { View, Text, Button } from "../components/Themed";
-import { getItem } from "../components/storage";
+import { getItem } from "../components/utils/storage";
 
 const styles = StyleSheet.create({
   infoContainer: {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { StyleSheet, FlatList } from "react-native";
 import { Text, View } from "./Themed.tsx";
 
-import { ra_to_hours, dec_to_dms } from "./units";
+import { ra_to_hours, dec_to_dms } from "./utils/units";
 
 function LocalizationProperties({ data }) {
   const board_styles = StyleSheet.create({

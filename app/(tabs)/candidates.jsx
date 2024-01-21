@@ -9,7 +9,7 @@ import {
   RNPickerSelect,
 } from "../../components/Themed.tsx";
 
-import { GET } from "../../components/API";
+import { GET } from "../../components/utils/API";
 import UserAvatar from "../../components/UserAvatar";
 import TimeSpans from "../../components/TimeSpans";
 
