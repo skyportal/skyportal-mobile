@@ -17,5 +17,5 @@ repos:
         name: ESLint
         entry: npx eslint -c .eslintrc.yaml --fix
         language: system
-        files: \.[j]sx?$
+        files: \.[j][t]sx?$
         types: [file]
