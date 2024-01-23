@@ -18,7 +18,5 @@ jobs:
           ref: main
       - name: Install npm dependency
         run: yarn install
-      - name: Install problematic library
-        run: npm install react-native-reanimated
       - name: Run jest
         run: npx jest
