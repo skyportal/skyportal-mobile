@@ -304,7 +304,7 @@ function PostFollowupRequest({ sourceId = null }) {
   );
 
   return (
-    <View style={{ flex: 1, height: 500 }}>
+    <View style={{ height: 1200 }}>
       <Text>Follow-up Request</Text>
       <RNPickerSelect
         items={request_options}

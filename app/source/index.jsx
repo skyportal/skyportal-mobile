@@ -140,8 +140,9 @@ function Source() {
             <Text style={styles.linkText}>{data.id}</Text>
           </TouchableOpacity>
 
-          <Text style={styles.itemText}>RA: {ra_to_hours(data.ra, ":")}</Text>
-          <Text style={styles.itemText}>Dec: {dec_to_dms(data.dec, ":")}</Text>
+          <Text style={styles.itemText}>
+            {ra_to_hours(data.ra, ":")}, {dec_to_dms(data.dec, ":")}
+          </Text>
           <View style={{ flex: 0.8, width: 200 }}>
             <PhotometryPlot
               dm={data.dm}
@@ -168,9 +169,11 @@ function Source() {
             ))}
           </ScrollView>
 
-          <Text style={{ marginTop: 10, fontSize: 16, fontWeight: "bold" }}>
-            Classifications:
-          </Text>
+          {data.classifications.length > 0 ? (
+            <Text style={{ marginTop: 10, fontSize: 16, fontWeight: "bold" }}>
+              Classifications:
+            </Text>
+          ) : null}
           <View
             style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
           >
@@ -218,7 +221,7 @@ function Source() {
           <View style={{ marginTop: 5 }}>
             <PostComment sourceId={data.id} setComment={setComment} />
           </View>
-          <View style={{ marginTop: 50 }}>
+          <View style={{ marginTop: 5 }}>
             <PostFollowupRequest sourceId={data.id} />
           </View>
         </View>
