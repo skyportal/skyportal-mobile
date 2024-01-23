@@ -17,7 +17,6 @@ function PostFollowupRequest({ sourceId = null }) {
   const [selectedAllocationId, setSelectedAllocationId] = useState(null);
 
   const [filteredAllocationList, setFilteredAllocationList] = useState([]);
-  const [settingFilteredList, setSettingFilteredList] = useState(false);
   const [requestType, setRequestType] = useState("triggered");
 
   useEffect(() => {
@@ -84,7 +83,6 @@ function PostFollowupRequest({ sourceId = null }) {
   // instrument form params with a non null formSchema
   useEffect(() => {
     async function filterAllocations() {
-      setSettingFilteredList(true);
       if (requestType === "triggered") {
         const filtered = (allocationList || []).filter(
           (allocation) =>
@@ -107,18 +105,16 @@ function PostFollowupRequest({ sourceId = null }) {
         );
         setFilteredAllocationList(filtered);
       }
-      setSettingFilteredList(false);
     }
     if (
       allocationList !== null &&
       allocationList.length > 0 &&
       instrumentForms !== null &&
-      Object.keys(instrumentForms).length > 0 &&
-      settingFilteredList === false
+      Object.keys(instrumentForms).length > 0
     ) {
       filterAllocations();
     }
-  }, [allocationList, instrumentForms, settingFilteredList, requestType]);
+  }, [allocationList, instrumentForms, requestType]);
 
   useEffect(() => {
     if (

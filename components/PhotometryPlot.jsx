@@ -198,6 +198,10 @@ function PhotometryPlot({ dm, photometry, height, width }) {
     return <Text>Loading photometry...</Text>;
   }
 
+  if (data.length === 0) {
+    return <Text>No photometry available...</Text>;
+  }
+
   const xDomain = photStats.days_ago.range;
   const yDomain = photStats.mag.range;
 

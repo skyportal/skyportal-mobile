@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, FlatList, Image, ActivityIndicator } from "react-native";
-import { Link } from "expo-router";
+import { Stack, Link } from "expo-router";
 
 import dayjs from "dayjs";
 import calendar from "dayjs/plugin/calendar";
