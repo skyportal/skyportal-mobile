@@ -34,10 +34,7 @@ function PostComment({ sourceId = null, eventId = null, setComment }) {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-        POST Comment
-      </Text>
+    <View style={{ padding: 20, flexDirection: "row" }}>
       <TextInput
         style={{
           height: 40,

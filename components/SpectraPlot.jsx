@@ -107,6 +107,10 @@ function SpectraPlot({ spectra, redshift }) {
     return <Text>Loading spectra...</Text>;
   }
 
+  if (data.length === 0) {
+    return <Text>No spectra available...</Text>;
+  }
+
   const xDomain = specStats.wavelength.range;
   const yDomain = specStats.flux.range;
 

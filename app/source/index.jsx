@@ -6,7 +6,7 @@ import { Text, View, TouchableOpacity } from "../../components/Themed.tsx";
 
 import UserAvatar from "../../components/UserAvatar";
 import PostComment from "../../components/PostComment";
-// import PostFollowupRequest from "../../components/PostFollowupRequest";
+import PostFollowupRequest from "../../components/PostFollowupRequest";
 import PhotometryPlot from "../../components/PhotometryPlot";
 import SpectraPlot from "../../components/SpectraPlot";
 
@@ -215,7 +215,12 @@ function Source() {
               </View>
             ))}
           </View>
-          <PostComment sourceId={data.id} setComment={setComment} />
+          <View style={{ marginTop: 5 }}>
+            <PostComment sourceId={data.id} setComment={setComment} />
+          </View>
+          <View style={{ marginTop: 50 }}>
+            <PostFollowupRequest sourceId={data.id} />
+          </View>
         </View>
       )}
     </ScrollView>

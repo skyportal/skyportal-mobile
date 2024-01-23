@@ -53,9 +53,9 @@ function Star({ type }) {
   }
 
   return (
-    <View>
-      <Text style={{ color: starColor, borderWidth: 0 }}>{starIcon}</Text>
-    </View>
+    <Text style={{ color: starColor, borderWidth: 0, marginHorizontal: 15 }}>
+      {starIcon}
+    </Text>
   );
 }
 
@@ -73,15 +73,15 @@ function LeaderBoard({ data }) {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: 8,
-      borderBottomWidth: 1,
+      marginBottom: 10,
+      borderBottomWidth: 3,
       borderColor: "#cccccc",
       paddingVertical: 8,
     },
     cell: {
       height: "100%",
       justifyContent: "center",
-      marginHorizontal: 18,
+      marginHorizontal: 8,
       borderWidth: 0,
     },
   });
@@ -91,7 +91,7 @@ function LeaderBoard({ data }) {
       <Star type={getStarType(index)} />
       <Text style={board_styles.cell}>{}</Text>
       <UserAvatar
-        size={25}
+        size={30}
         firstName={item.author?.first_name}
         lastName={item.author?.last_name}
         username={item.author?.username}

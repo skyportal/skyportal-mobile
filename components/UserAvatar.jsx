@@ -8,8 +8,8 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
 
   const styles = StyleSheet.create({
     avatarContainer: {
-      width: 50,
-      height: 50,
+      width: 100,
+      height: 100,
       borderRadius: 25,
       overflow: "hidden",
     },
@@ -20,8 +20,8 @@ function UserAvatar({ size, firstName, lastName, username, gravatarUrl }) {
     },
     initialsContainer: {
       flex: 1,
-      width: 50,
-      height: 60,
+      width: "100%",
+      height: "100%",
       justifyContent: "center",
       alignItems: "center",
     },
