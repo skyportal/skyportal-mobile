@@ -15,7 +15,7 @@
     "@expo/vector-icons": "^14.0.0",
     "@jsonforms/core": "^3.1.0",
     "@jsonforms/react": "^3.1.0",
-    "@react-native-async-storage/async-storage": "1.21.0",
+    "@react-native-async-storage/async-storage": "1.22.3",
     "@react-native-picker/picker": "2.6.1",
     "@react-navigation/native": "^6.0.2",
     "@rneui/base": "^4.0.0-rc.7",
