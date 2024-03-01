@@ -54,7 +54,7 @@
     "react-native-vision-camera": "^3.7.0",
     "react-native-web": "~0.19.6",
     "react-tagcloud": "^2.3.3",
-    "victory-native": "^36.8.2"
+    "victory-native": "^40.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
